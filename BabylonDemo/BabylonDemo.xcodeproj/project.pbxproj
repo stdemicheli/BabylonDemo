@@ -12,6 +12,9 @@
 		3D4E8BF322118E8A00644FA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4E8BF222118E8A00644FA1 /* Assets.xcassets */; };
 		3D4E8BF622118E8A00644FA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4E8BF422118E8A00644FA1 /* LaunchScreen.storyboard */; };
 		3D4E8C092211906A00644FA1 /* BabylonDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C082211906A00644FA1 /* BabylonDemoTests.swift */; };
+		3D4E8C16221192FF00644FA1 /* PostRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C15221192FF00644FA1 /* PostRepresentation.swift */; };
+		3D4E8C1822119C1C00644FA1 /* CommentRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C1722119C1C00644FA1 /* CommentRepresentation.swift */; };
+		3D4E8C1A2211A2A700644FA1 /* UserRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C192211A2A700644FA1 /* UserRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,9 @@
 		3D4E8C062211906A00644FA1 /* BabylonDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabylonDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4E8C082211906A00644FA1 /* BabylonDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabylonDemoTests.swift; sourceTree = "<group>"; };
 		3D4E8C0A2211906A00644FA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D4E8C15221192FF00644FA1 /* PostRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRepresentation.swift; sourceTree = "<group>"; };
+		3D4E8C1722119C1C00644FA1 /* CommentRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepresentation.swift; sourceTree = "<group>"; };
+		3D4E8C192211A2A700644FA1 /* UserRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepresentation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +130,9 @@
 		3D4E8C0122118FDF00644FA1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3D4E8C15221192FF00644FA1 /* PostRepresentation.swift */,
+				3D4E8C1722119C1C00644FA1 /* CommentRepresentation.swift */,
+				3D4E8C192211A2A700644FA1 /* UserRepresentation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -274,6 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D4E8C1822119C1C00644FA1 /* CommentRepresentation.swift in Sources */,
+				3D4E8C1A2211A2A700644FA1 /* UserRepresentation.swift in Sources */,
+				3D4E8C16221192FF00644FA1 /* PostRepresentation.swift in Sources */,
 				3D4E8BEC22118E8900644FA1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,7 +450,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84BULQXU2Q;
-				INFOPLIST_FILE = BabylonDemo/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/BabylonDemo/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -456,7 +468,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84BULQXU2Q;
-				INFOPLIST_FILE = BabylonDemo/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/BabylonDemo/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
