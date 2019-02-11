@@ -9,13 +9,13 @@
 import Foundation
 import CoreData
 
-enum CoreDataEntities: String {
-    case Vehicle, Booking
-}
-
-class CoreDataStack {
+class FeedPersistenceStore {
     
-    static let shared = CoreDataStack()
+    enum Entities {
+        case post, comment, user
+    }
+    
+    static let shared = FeedPersistenceStore()
     
     func save(context: NSManagedObjectContext) throws {
         var error: Error?
