@@ -8,24 +8,43 @@
 
 /* Begin PBXBuildFile section */
 		3D4E8BEC22118E8900644FA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8BEB22118E8900644FA1 /* AppDelegate.swift */; };
-		3D4E8BEE22118E8900644FA1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8BED22118E8900644FA1 /* ViewController.swift */; };
 		3D4E8BF122118E8900644FA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4E8BEF22118E8900644FA1 /* Main.storyboard */; };
 		3D4E8BF322118E8A00644FA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4E8BF222118E8A00644FA1 /* Assets.xcassets */; };
 		3D4E8BF622118E8A00644FA1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4E8BF422118E8A00644FA1 /* LaunchScreen.storyboard */; };
+		3D4E8C092211906A00644FA1 /* BabylonDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C082211906A00644FA1 /* BabylonDemoTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3D4E8C0B2211906A00644FA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D4E8BE022118E8900644FA1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D4E8BE722118E8900644FA1;
+			remoteInfo = BabylonDemo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		3D4E8BE822118E8900644FA1 /* BabylonDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabylonDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4E8BEB22118E8900644FA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3D4E8BED22118E8900644FA1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3D4E8BF022118E8900644FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D4E8BF222118E8A00644FA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D4E8BF522118E8A00644FA1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D4E8BF722118E8A00644FA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D4E8C062211906A00644FA1 /* BabylonDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabylonDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D4E8C082211906A00644FA1 /* BabylonDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabylonDemoTests.swift; sourceTree = "<group>"; };
+		3D4E8C0A2211906A00644FA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3D4E8BE522118E8900644FA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D4E8C032211906A00644FA1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				3D4E8BEA22118E8900644FA1 /* BabylonDemo */,
+				3D4E8C072211906A00644FA1 /* BabylonDemoTests */,
 				3D4E8BE922118E8900644FA1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				3D4E8BE822118E8900644FA1 /* BabylonDemo.app */,
+				3D4E8C062211906A00644FA1 /* BabylonDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,13 +76,101 @@
 			isa = PBXGroup;
 			children = (
 				3D4E8BEB22118E8900644FA1 /* AppDelegate.swift */,
-				3D4E8BED22118E8900644FA1 /* ViewController.swift */,
+				3D4E8C0122118FDF00644FA1 /* Models */,
+				3D4E8C0022118FC700644FA1 /* Services */,
+				3D4E8BFF22118FBA00644FA1 /* ViewModels */,
+				3D4E8BFE22118F9F00644FA1 /* ViewControllers */,
+				3D4E8BFD22118F8000644FA1 /* Resources */,
+				3D4E8C10221190D600644FA1 /* Extensions */,
+				3D4E8C11221190DC00644FA1 /* Utils */,
+			);
+			path = BabylonDemo;
+			sourceTree = "<group>";
+		};
+		3D4E8BFD22118F8000644FA1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				3D4E8BEF22118E8900644FA1 /* Main.storyboard */,
 				3D4E8BF222118E8A00644FA1 /* Assets.xcassets */,
 				3D4E8BF422118E8A00644FA1 /* LaunchScreen.storyboard */,
 				3D4E8BF722118E8A00644FA1 /* Info.plist */,
 			);
-			path = BabylonDemo;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3D4E8BFE22118F9F00644FA1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3D4E8C132211918400644FA1 /* PostFeed */,
+				3D4E8C14221191B200644FA1 /* PostDetail */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3D4E8BFF22118FBA00644FA1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		3D4E8C0022118FC700644FA1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		3D4E8C0122118FDF00644FA1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3D4E8C072211906A00644FA1 /* BabylonDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				3D4E8C122211916000644FA1 /* Mocks */,
+				3D4E8C082211906A00644FA1 /* BabylonDemoTests.swift */,
+				3D4E8C0A2211906A00644FA1 /* Info.plist */,
+			);
+			path = BabylonDemoTests;
+			sourceTree = "<group>";
+		};
+		3D4E8C10221190D600644FA1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3D4E8C11221190DC00644FA1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		3D4E8C122211916000644FA1 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		3D4E8C132211918400644FA1 /* PostFeed */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PostFeed;
+			sourceTree = "<group>";
+		};
+		3D4E8C14221191B200644FA1 /* PostDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PostDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,6 +193,24 @@
 			productReference = 3D4E8BE822118E8900644FA1 /* BabylonDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3D4E8C052211906A00644FA1 /* BabylonDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D4E8C0D2211906A00644FA1 /* Build configuration list for PBXNativeTarget "BabylonDemoTests" */;
+			buildPhases = (
+				3D4E8C022211906A00644FA1 /* Sources */,
+				3D4E8C032211906A00644FA1 /* Frameworks */,
+				3D4E8C042211906A00644FA1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3D4E8C0C2211906A00644FA1 /* PBXTargetDependency */,
+			);
+			name = BabylonDemoTests;
+			productName = BabylonDemoTests;
+			productReference = 3D4E8C062211906A00644FA1 /* BabylonDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -96,6 +223,10 @@
 				TargetAttributes = {
 					3D4E8BE722118E8900644FA1 = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					3D4E8C052211906A00644FA1 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 3D4E8BE722118E8900644FA1;
 					};
 				};
 			};
@@ -113,6 +244,7 @@
 			projectRoot = "";
 			targets = (
 				3D4E8BE722118E8900644FA1 /* BabylonDemo */,
+				3D4E8C052211906A00644FA1 /* BabylonDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -128,6 +260,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D4E8C042211906A00644FA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -135,12 +274,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D4E8BEE22118E8900644FA1 /* ViewController.swift in Sources */,
 				3D4E8BEC22118E8900644FA1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D4E8C022211906A00644FA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D4E8C092211906A00644FA1 /* BabylonDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3D4E8C0C2211906A00644FA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D4E8BE722118E8900644FA1 /* BabylonDemo */;
+			targetProxy = 3D4E8C0B2211906A00644FA1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3D4E8BEF22118E8900644FA1 /* Main.storyboard */ = {
@@ -314,6 +468,46 @@
 			};
 			name = Release;
 		};
+		3D4E8C0E2211906A00644FA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 84BULQXU2Q;
+				INFOPLIST_FILE = BabylonDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stefano.BabylonDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BabylonDemo.app/BabylonDemo";
+			};
+			name = Debug;
+		};
+		3D4E8C0F2211906A00644FA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 84BULQXU2Q;
+				INFOPLIST_FILE = BabylonDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stefano.BabylonDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BabylonDemo.app/BabylonDemo";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -331,6 +525,15 @@
 			buildConfigurations = (
 				3D4E8BFB22118E8A00644FA1 /* Debug */,
 				3D4E8BFC22118E8A00644FA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D4E8C0D2211906A00644FA1 /* Build configuration list for PBXNativeTarget "BabylonDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D4E8C0E2211906A00644FA1 /* Debug */,
+				3D4E8C0F2211906A00644FA1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
