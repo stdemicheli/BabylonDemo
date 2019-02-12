@@ -19,7 +19,7 @@ class FeedLoader {
     
     private let feedAPI: FeedAPIProtocol
     private let feedStore: FeedPersistenceStoreProtocol
-    private let bag = DisposeBag()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Input
     
@@ -36,6 +36,10 @@ class FeedLoader {
         self.feedAPI = api
         self.feedStore = store
         
+        // TODO: synchronize with local data store, and then save to disk
+        
+        /// Maps API responses to Feed objects (Post, Comment, User)
+        // TODO: break into generic function:
         posts = api.loadPosts()
             .flatMap { postRepresentations -> Observable<[Post]> in
                 let posts = Post.convert(from: postRepresentations)
@@ -56,9 +60,9 @@ class FeedLoader {
                 return Observable.from(optional: users)
             }
             .share(replay: 1, scope: .whileConnected)
-        
     }
     
-    // MARK: - Feed loader
+    // MARK: - Private methods
+    
     
 }
