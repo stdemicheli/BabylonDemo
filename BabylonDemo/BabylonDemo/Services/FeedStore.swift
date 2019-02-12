@@ -8,14 +8,30 @@
 
 import Foundation
 import CoreData
+import RxSwift
 
-class FeedPersistenceStore {
+/**
+ The protocol for fetching data for the post feed from the local persistence store.
+ */
+
+protocol FeedPersistenceStoreProtocol {
+    func save(context: NSManagedObjectContext)
+    func loadPosts() -> Observable<[PostRepresentation]>
+    func loadComments() -> Observable<[CommentRepresentation]>
+    func loadUsers() -> Observable<[UserRepresentation]>
+}
+
+/**
+ The persistence store service for fetching post feed data from the local persistence store.
+ */
+
+class FeedStore {
     
     enum Entities {
         case post, comment, user
     }
     
-    static let shared = FeedPersistenceStore()
+    static let shared = FeedStore()
     
     func save(context: NSManagedObjectContext) throws {
         var error: Error?
