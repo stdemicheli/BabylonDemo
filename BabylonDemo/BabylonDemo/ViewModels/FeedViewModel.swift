@@ -15,7 +15,6 @@ class FeedViewModel: ViewModelType {
     // MARK: - Properties
     
     typealias PostView = String
-    
     private let loader: FeedLoader
     private let disposeBag = DisposeBag()
     
@@ -25,11 +24,10 @@ class FeedViewModel: ViewModelType {
         let fetch: Observable<Void>
     }
     
-    
     // MARK: - Output
     
     struct Output {
-        var posts: Driver<[PostView]>
+        let posts: Driver<[PostView]>
     }
     
     // MARK: - Init
@@ -37,6 +35,8 @@ class FeedViewModel: ViewModelType {
     init(loader: FeedLoader) {
         self.loader = loader
     }
+    
+    // MARK: - Public methods
     
     func transform(input: FeedViewModel.Input) -> FeedViewModel.Output {
         let posts = input.fetch

@@ -45,7 +45,7 @@ class FeedLoader {
                 let posts = Post.convert(from: postRepresentations)
                 return Observable.from(optional: posts)
             }
-            .share(replay: 1, scope: .whileConnected)
+            //.share(replay: 1, scope: .whileConnected)
         
         comments = api.loadComments()
             .flatMap { commentRepresentations -> Observable<[Comment]> in
