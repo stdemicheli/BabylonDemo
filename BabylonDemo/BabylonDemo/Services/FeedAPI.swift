@@ -14,6 +14,7 @@ import RxSwift
  */
 
 protocol FeedAPIProtocol {
+    var dataLoader: DataLoader { get }
     func loadPosts() -> Observable<[PostRepresentation]>
     func loadComments() -> Observable<[CommentRepresentation]>
     func loadUsers() -> Observable<[UserRepresentation]>
@@ -38,7 +39,16 @@ struct FeedAPI: FeedAPIProtocol {
         case requestFailed, decodingFailed
     }
     
+    // MARK: - Properties
+    
     let baseUrl = URL(string: "http://jsonplaceholder.typicode.com/")!
+    let dataLoader: DataLoader
+    
+    // MARK: - Init
+    
+    init(dataLoader: DataLoader = URLSession.shared) {
+        self.dataLoader = dataLoader
+    }
     
     // MARK: - Network requests
     
@@ -65,7 +75,7 @@ struct FeedAPI: FeedAPIProtocol {
     /// A generic fetch request which returns a custom observable.
     private func fetch<Resource: Codable>(with url: URL) -> Observable<Resource> {
         return Observable.create({ observer in
-            let dataTask = URLSession.shared.dataTask(with: url) {data, res, error in
+            let dataTask = self.dataLoader.loadData(from: url) {data, res, error in
                 if let error = error {
                     NSLog("Error with FETCH urlRequest: \(error)")
                     observer.onError(Errors.requestFailed)
