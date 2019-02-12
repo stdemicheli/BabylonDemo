@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 /**
- The protocol for fetching data for the post feed.
+ The protocol for fetching data for the post feed from the server.
  */
 
 protocol FeedAPIProtocol {
@@ -38,7 +38,7 @@ struct FeedAPI: FeedAPIProtocol {
         case requestFailed, decodingFailed
     }
     
-    let baseUrl = URL(string: "http://jsonplaceholder.typicode.com/posts")!
+    let baseUrl = URL(string: "http://jsonplaceholder.typicode.com/")!
     
     // MARK: - Network requests
     

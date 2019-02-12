@@ -15,17 +15,17 @@ import RxSwift
  */
 
 protocol FeedPersistenceStoreProtocol {
-    func save(context: NSManagedObjectContext)
-    func loadPosts() -> Observable<[PostRepresentation]>
-    func loadComments() -> Observable<[CommentRepresentation]>
-    func loadUsers() -> Observable<[UserRepresentation]>
+    func save(context: NSManagedObjectContext) throws
+//    func loadPosts() -> Observable<[PostRepresentation]>
+//    func loadComments() -> Observable<[CommentRepresentation]>
+//    func loadUsers() -> Observable<[UserRepresentation]>
 }
 
 /**
  The persistence store service for fetching post feed data from the local persistence store.
  */
 
-class FeedStore {
+class FeedStore: FeedPersistenceStoreProtocol {
     
     enum Entities {
         case post, comment, user
