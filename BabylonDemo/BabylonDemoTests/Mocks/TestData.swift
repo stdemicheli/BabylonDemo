@@ -7,3 +7,25 @@
 //
 
 import Foundation
+
+@testable import BabylonDemo
+
+struct TestData {
+    
+    static let validPostJSON = """
+    {
+        "userId": 1,
+        "id": 1,
+        "title": "test",
+        "body": "test"
+    }
+    """.data(using: .utf8)!
+    
+    static let invalidPostJSON = """
+    {
+        "error": true
+    }
+    """.data(using: .utf8)!
+
+    
+}
