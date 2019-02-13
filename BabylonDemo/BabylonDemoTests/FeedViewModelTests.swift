@@ -17,6 +17,7 @@ class FeedViewModelTests: XCTestCase {
     var feedLoader: FeedLoader!
     var testAPI: FeedAPIProtocol!
     var mockLoader: MockLoader!
+    var disposeBag = DisposeBag()
     
     override func setUp() {
         super.setUp()
@@ -37,21 +38,65 @@ class FeedViewModelTests: XCTestCase {
     
     // MARK: - Tests
     
-    func testExample() {
+    func test_whenFetchIsTriggered_handlesValidPostData() {
         // given
-        mockLoader.data = TestData.validPostJSON
+        mockLoader.data = TestData.Feed.validPostJSON
         let testSubject = PublishSubject<Void>()
                 
         // when
         let input = FeedViewModel.Input(fetch: testSubject.asObservable())
         let output = feedViewModel.transform(input: input)
+
+        output.posts.asObservable()
+            .subscribe(onNext: { post in
+                // then
+                XCTAssertNotNil(post)
+                XCTAssertEqual(post.first, TestData.Feed.expectedTitle)
+            })
+            .disposed(by: disposeBag)
         
+        testSubject.onNext(())
         
         // then
         XCTAssertNotNil(input)
         XCTAssertNotNil(output)
+    }
+    
+    func test_whenFetchIsTriggered_handlesInvalidPostData() {
+        // given
+        mockLoader.data = TestData.Feed.invalidPostJSON
+        let testSubject = PublishSubject<Void>()
         
+        // when
+        let input = FeedViewModel.Input(fetch: testSubject.asObservable())
+        let output = feedViewModel.transform(input: input)
         
+        output.posts.asObservable()
+            .subscribe(onNext: { post in
+                // then
+                XCTAssertNotNil(post)
+                XCTAssertTrue(post.isEmpty)
+            })
+            .disposed(by: disposeBag)
+        
+        testSubject.onNext(())
+        
+        // then
+        XCTAssertNotNil(input)
+        XCTAssertNotNil(output)
+    }
+    
+    func test_whenInitialized_bindsPosts() {
+        // given
+        mockLoader.data = TestData.Feed.validPostJSON
+        let testSubject = PublishSubject<Void>()
+        
+        // when
+        let input = FeedViewModel.Input(fetch: testSubject.asObservable())
+        let output = feedViewModel.transform(input: input)
+        
+        // then
+        XCTAssertNotNil(output)
     }
         
 }

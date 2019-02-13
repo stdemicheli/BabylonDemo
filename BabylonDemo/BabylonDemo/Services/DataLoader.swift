@@ -13,13 +13,13 @@ import Foundation
  */
 
 protocol DataLoader {
-    func loadData(from request: URLRequest, completion: @escaping(Data?, URLResponse?,  Error?) -> Void)
+    func loadData(from request: URLRequest, completion: @escaping(Data?, URLResponse?,  Error?) -> Void) -> URLSessionDataTask
     func loadData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
 }
 
 extension URLSession: DataLoader {
-    func loadData(from request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        dataTask(with: request) { (data, res, error) in
+    func loadData(from request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        return dataTask(with: request) { (data, res, error) in
             completion(data, res, error)
         }
     }

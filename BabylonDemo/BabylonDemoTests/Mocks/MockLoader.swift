@@ -24,18 +24,36 @@ class MockLoader: DataLoader {
         
     func loadData(from request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         self.request = request
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            completion(self.data, nil, self.error)
-        }
-        return URLSessionDataTask.init()
+        return URLSessionDataTaskMock(closure: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                completion(self.data, nil, self.error)
+            }
+        })
     }
     
     func loadData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         self.url = url
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            completion(self.data, nil, self.error)
-        }
-        return URLSessionDataTask.init()
+        return URLSessionDataTaskMock(closure: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                completion(self.data, nil, self.error)
+            }
+        })
     }
+    
+}
+
+class URLSessionDataTaskMock: URLSessionDataTask {
+    
+    private let closure: () -> Void
+    
+    init(closure: @escaping () -> Void) {
+        self.closure = closure
+    }
+    
+    override func resume() {
+        closure()
+    }
+    
+    override func cancel() { }
     
 }
