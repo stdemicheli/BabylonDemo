@@ -14,3 +14,7 @@ protocol ViewModelType {
     
     func transform(input: Input) -> Output
 }
+
+enum ViewModelErrors: Error {
+    case valueNotFound
+}
