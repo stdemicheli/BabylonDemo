@@ -40,7 +40,8 @@ class PostDetailViewModel: ViewModelType {
     
     /// Output which exposes an observable sequence for post details.
     struct Output {
-        let postDetail: Driver<ViewPostDetail>
+        let postDetail: Observable<ViewPostDetail>
+        //let postDetail: Driver<ViewPostDetail>
     }
     
     // MARK: - Init
@@ -60,7 +61,7 @@ class PostDetailViewModel: ViewModelType {
         let users = loader.users
         
         let postDetail = input.fetch
-            // Combine loaded feed observables into one observable.
+            // Return a combined observer once all feed observables have emitted new values.
             .flatMap { _ in
                 return Observable.zip(posts, comments, users)
             }
@@ -69,7 +70,7 @@ class PostDetailViewModel: ViewModelType {
                 // TODO: add loadPost to loader that shares the latest fetch instead of refetching
                 let author = feed.2.first(where: { Int($0.identifier) == self?.userId.value })?.name
                 let postBody = feed.0.first(where: { Int($0.identifier) == self?.postId.value })?.body
-                let commentCount = feed.1.count
+                let commentCount = feed.1.filter { Int($0.postIdentifier) == self?.postId.value }.count
                 
                 if let author = author, let postBody = postBody {
                     return Observable.of((author: author, description: postBody, commentCount: commentCount))
@@ -78,7 +79,7 @@ class PostDetailViewModel: ViewModelType {
                 }
             }
             // TODO: handle error
-            .asDriver(onErrorJustReturn: (author: "", description: "", commentCount: 0))
+            //.asDriver(onErrorJustReturn: (author: "", description: "", commentCount: 0))
         
         return Output(postDetail: postDetail)
     }
