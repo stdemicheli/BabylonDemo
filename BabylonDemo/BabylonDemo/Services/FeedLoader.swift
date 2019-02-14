@@ -22,55 +22,54 @@ class FeedLoader {
     private let feedStore: FeedPersistenceStoreProtocol
     private let disposeBag = DisposeBag()
     
-    // MARK: - Input
-    
-    
     // MARK: - Output
     
-    let posts: Observable<[Post]>
-    let comments: Observable<[Comment]>
-    let users: Observable<[User]>
+    var posts: Observable<[Post]>
+    var comments: Observable<[Comment]>
+    var users: Observable<[User]>
+    var error: Variable<FeedError>
     
     // MARK: - Init
     
     init(api: FeedAPIProtocol, store: FeedPersistenceStoreProtocol) {
         self.feedAPI = api
         self.feedStore = store
+        self.posts = Observable.empty()
+        self.comments = Observable.empty()
+        self.users = Observable.empty()
+        self.error = Variable(FeedError(type: .none))
         
-        let backgroundContext = store.container.newBackgroundContext()
-        let postsFromStore: [Post] = store.load(recent: 100, in: backgroundContext)
-        posts = FeedLoader.loadPosts(from: api, combineWith: postsFromStore, in: backgroundContext)
-        comments = FeedLoader.loadComments(from: api)
-        users = FeedLoader.loadUsers(from: api)
+        setupOutput()
     }
     
-    // MARK: - Network requests
-    
-    static func loadPosts(from api: FeedAPIProtocol, combineWith postsFromStore: [Post], in context: NSManagedObjectContext) -> Observable<[Post]> {
-        let maxAttempts = 3
+    private func setupOutput() {
+        let backgroundContext = feedStore.container.newBackgroundContext()
+        let postsFromStore: [Post] = feedStore.load(recent: 100, in: backgroundContext)
         
-        return api.loadPosts()
-            .flatMap { postRepresentations -> Observable<[Post]> in
-                let syncedPosts = try syncPersistentStore(postsFromStore, with: postRepresentations, in: context)
-                return syncedPosts
+        posts = loadPosts(with: postsFromStore, in: backgroundContext)
+        comments = loadComments()
+        users = loadUsers()
+    }
+    
+    // MARK: - Feed loader
+    
+    func loadPosts(with postsFromStore: [Post], in context: NSManagedObjectContext) -> Observable<[Post]> {
+        return feedAPI.loadPosts()
+            .flatMap { [weak self] postRepresentations -> Observable<[Post]> in
+                let syncedPosts = try self?.syncPersistentStore(postsFromStore, with: postRepresentations, in: context)
+                return syncedPosts ?? Observable.from(optional: postsFromStore)
             }
             .share(replay: 1, scope: .whileConnected)
-            // Retries on error. Delays retry with each succession.
-            .retryWhen { error in
-                return error.enumerated().flatMap { (attempt, error) -> Observable<Int> in
-                    if attempt >= maxAttempts - 1 {
-                        return Observable.error(error)
-                    }
-                    return Observable<Int>.timer(Double(attempt * 2), scheduler: MainScheduler.instance).take(1)
-                }
-            }
             .catchError { error in
+                if let feedError = error as? FeedError.Types {
+                    self.error.value = FeedError(type: feedError)
+                }
                 return Observable.from(optional: postsFromStore)
             }
     }
     
-    static func loadComments(from api: FeedAPIProtocol) -> Observable<[Comment]> {
-        return api.loadComments()
+    func loadComments() -> Observable<[Comment]> {
+        return feedAPI.loadComments()
             // Map JSON representation to Core Data model.
             .flatMap { commentRepresentations -> Observable<[Comment]> in
                 let comments = Comment.convert(from: commentRepresentations)
@@ -79,8 +78,8 @@ class FeedLoader {
             .share(replay: 1, scope: .whileConnected)
     }
     
-    static func loadUsers(from api: FeedAPIProtocol) -> Observable<[User]> {
-        return api.loadUsers()
+    func loadUsers() -> Observable<[User]> {
+        return feedAPI.loadUsers()
             // Map JSON representation to Core Data model.
             .flatMap { userRepresentations -> Observable<[User]> in
                 let users = User.convert(from: userRepresentations)
@@ -89,9 +88,9 @@ class FeedLoader {
             .share(replay: 1, scope: .whileConnected)
     }
     
-    // MARK: - Local persistence
+    // MARK: - Private methods
     
-    static func syncPersistentStore(_ store: [Post], with postRepresentations: [PostRepresentation], in context: NSManagedObjectContext) throws -> Observable<[Post]>  {
+    private func syncPersistentStore(_ store: [Post], with postRepresentations: [PostRepresentation], in context: NSManagedObjectContext) throws -> Observable<[Post]>  {
         var error: Error?
         let postIds = Set(store.map { Int($0.identifier) })
         var posts = store

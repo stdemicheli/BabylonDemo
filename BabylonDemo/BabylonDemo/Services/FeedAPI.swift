@@ -34,11 +34,6 @@ struct FeedAPI: FeedAPIProtocol {
         case delete = "DELETE"
     }
     
-    /// An error type for handling errors occuring during network requests.
-    enum Errors: Error {
-        case requestFailed, decodingFailed, noConnection
-    }
-    
     // MARK: - Properties
     
     let baseUrl = URL(string: "http://jsonplaceholder.typicode.com/")!
@@ -78,30 +73,31 @@ struct FeedAPI: FeedAPIProtocol {
             let dataTask = self.dataLoader.loadData(from: url) {data, res, error in
                 if let error = error {
                     NSLog("Error with FETCH urlRequest: \(error)")
-                    observer.onError(Errors.requestFailed)
+                    observer.onError(FeedError.Types.requestFailed)
                     return
                 }
                 
                 guard let data = data else {
                     NSLog("No data returned")
-                    observer.onError(Errors.requestFailed)
+                    observer.onError(FeedError.Types.requestFailed)
                     return
                 }
                 
                 if let httpResponse = res as? HTTPURLResponse {
                     if httpResponse.statusCode != 200 {
                         NSLog("An error code was returned from the http request: \(httpResponse.statusCode)")
-                        observer.onError(Errors.requestFailed)
+                        observer.onError(FeedError.Types.requestFailed)
                         return
                     }
                 }
                 
                 do {
                     let resource = try JSONDecoder().decode(Resource.self, from: data)
-                    observer.onNext(resource)
+                    observer.onError(FeedError.Types.noConnection)
+                    //observer.onNext(resource)
                 } catch {
                     NSLog("Error decoding data: \(error)")
-                    observer.onError(Errors.decodingFailed)
+                    observer.onError(FeedError.Types.decodingFailed)
                     return
                 }
             }
