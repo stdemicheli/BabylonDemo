@@ -10,6 +10,7 @@ import Foundation
 
 /**
  A network data loader protocol and extension for loading data from network.
+ The data loader protocol gives us the ability to inject mock data for our tests.
  */
 
 protocol DataLoader {

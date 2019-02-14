@@ -13,7 +13,7 @@ import CoreData
  A user representation model which represents a user parsed from a JSON object.
  */
 
-struct UserRepresentation: Codable {
+struct UserRepresentation: Codable, Representation {
     
     let identifier: Int
     let name: String

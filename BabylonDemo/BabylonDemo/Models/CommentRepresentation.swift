@@ -13,7 +13,7 @@ import CoreData
  A comment representation model which represents a comment parsed from a JSON object.
  */
 
-struct CommentRepresentation: Codable {
+struct CommentRepresentation: Codable, Representation {
     
     let identifier: Int
     let postIdentifier: Int

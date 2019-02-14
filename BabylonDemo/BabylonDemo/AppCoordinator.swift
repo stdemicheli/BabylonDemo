@@ -20,10 +20,12 @@ class AppCoordinator: AppCoordinatorDelegate {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        
+
         let feedAPI = FeedAPI()
         let feedStore = FeedStore()
         feedLoader = FeedLoader(api: feedAPI, store: feedStore)
+        
+        setupViews()
     }
     
     // MARK: - Navigation
@@ -51,6 +53,12 @@ class AppCoordinator: AppCoordinatorDelegate {
     
     func didTapOnPost(with postId: Int, userId: Int) {
         showPostDetails(for: postId, userId: userId)
+    }
+    
+    // MARK: - Setup
+    
+    func setupViews() {
+        navigationController.navigationBar.prefersLargeTitles = true
     }
     
 }

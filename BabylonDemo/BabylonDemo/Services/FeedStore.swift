@@ -15,10 +15,11 @@ import RxSwift
  */
 
 protocol FeedPersistenceStoreProtocol {
+    var container: NSPersistentContainer { get }
+    var mainContext: NSManagedObjectContext { get }
     func save(context: NSManagedObjectContext) throws
-//    func loadPosts() -> Observable<[PostRepresentation]>
-//    func loadComments() -> Observable<[CommentRepresentation]>
-//    func loadUsers() -> Observable<[UserRepresentation]>
+    func load<Resource: NSManagedObject>(with identifier: Int, context: NSManagedObjectContext) -> Resource?
+    func load<Resource: NSManagedObject>(recent fetchLimit: Int, in context: NSManagedObjectContext) -> [Resource]
 }
 
 /**
@@ -31,7 +32,27 @@ class FeedStore: FeedPersistenceStoreProtocol {
         case post, comment, user
     }
     
+    // MARK: - Properties
+    
     static let shared = FeedStore()
+    
+    lazy var container: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Feed")
+        container.loadPersistentStores  { (_, error) in
+            if let error = error {
+                fatalError("Failed to load persistent store: \(error)")
+            }
+        }
+        
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        return container
+    }()
+    
+    var mainContext: NSManagedObjectContext {
+        return container.viewContext
+    }
+    
+    // MARK: - Public methods
     
     func save(context: NSManagedObjectContext) throws {
         var error: Error?
@@ -48,20 +69,41 @@ class FeedStore: FeedPersistenceStoreProtocol {
         if let error = error { throw error }
     }
     
-    lazy var container: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Feed")
-        container.loadPersistentStores  { (_, error) in
-            if let error = error {
-                fatalError("Failed to load persistent store: \(error)")
+    func load<Resource: NSManagedObject>(with identifier: Int, context: NSManagedObjectContext) -> Resource? {
+        var resource: Resource? = nil
+        
+        let fetchRequest: NSFetchRequest<Resource> = Resource.fetchRequest() as! NSFetchRequest<Resource>
+        let predicate = NSPredicate(format: "identifier == %d", identifier)
+        fetchRequest.predicate = predicate
+        
+        context.performAndWait {
+            do {
+                resource = try context.fetch(fetchRequest).first
+            } catch {
+                NSLog("Error loading from persistent store: \(error)")
             }
         }
         
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        return container
-    }()
+        return resource
+    }
     
-    var mainContext: NSManagedObjectContext {
-        return container.viewContext
+    func load<Resource: NSManagedObject>(recent fetchLimit: Int, in context: NSManagedObjectContext) -> [Resource] {
+        var resource = [Resource]()
+        
+        let fetchRequest: NSFetchRequest<Resource> = Resource.fetchRequest() as! NSFetchRequest<Resource>
+        let idSortDescriptor = NSSortDescriptor(key: "identifier", ascending: false)
+        fetchRequest.sortDescriptors = [idSortDescriptor]
+        fetchRequest.fetchLimit = fetchLimit
+        
+        context.performAndWait {
+            do {
+                resource = try context.fetch(fetchRequest)
+            } catch {
+                NSLog("Error loading from persistent store: \(error)")
+            }
+        }
+        
+        return resource
     }
     
 }

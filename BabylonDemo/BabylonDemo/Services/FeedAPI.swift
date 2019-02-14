@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 /**
- The protocol for fetching data for the post feed from the server.
+ The protocol for fetching feed data from the network.
  */
 
 protocol FeedAPIProtocol {
@@ -21,7 +21,7 @@ protocol FeedAPIProtocol {
 }
 
 /**
- The network service for fetching post feed data from the server.
+ The network service for fetching feed data from the server.
  */
 
 struct FeedAPI: FeedAPIProtocol {
@@ -34,9 +34,9 @@ struct FeedAPI: FeedAPIProtocol {
         case delete = "DELETE"
     }
     
-    /// An error type for handling errors during network requests.
+    /// An error type for handling errors occuring during network requests.
     enum Errors: Error {
-        case requestFailed, decodingFailed
+        case requestFailed, decodingFailed, noConnection
     }
     
     // MARK: - Properties
@@ -50,7 +50,7 @@ struct FeedAPI: FeedAPIProtocol {
         self.dataLoader = dataLoader
     }
     
-    // MARK: - Network requests
+    // MARK: - Network request methods
     
     /// A network request for loading posts.
     func loadPosts() -> Observable<[PostRepresentation]> {

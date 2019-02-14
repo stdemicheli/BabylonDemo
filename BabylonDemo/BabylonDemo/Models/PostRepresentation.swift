@@ -13,7 +13,7 @@ import CoreData
  A post representation model which represents a post parsed from a JSON object.
  */
 
-struct PostRepresentation: Codable {
+struct PostRepresentation: Codable, Representation {
     
     let identifier: Int
     let userIdentifier: Int
@@ -35,13 +35,12 @@ struct PostRepresentation: Codable {
 
 extension Post {
     
-    convenience init(identifier: Int16, userIdentifier: Int16, title: String, body: String, author: String? = nil, context: NSManagedObjectContext = FeedStore.shared.mainContext) {
+    convenience init(identifier: Int16, userIdentifier: Int16, title: String, body: String, context: NSManagedObjectContext = FeedStore.shared.mainContext) {
         self.init(context: context)
         self.identifier = identifier
         self.userIdentifier = userIdentifier
         self.title = title
         self.body = body
-        self.author = author
     }
     
     /// An convenience initializer that initializes a Post model from a parsed JSON object.
