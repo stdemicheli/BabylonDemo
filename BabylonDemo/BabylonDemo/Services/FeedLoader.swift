@@ -47,14 +47,26 @@ class FeedLoader {
     // MARK: - Network requests
     
     static func loadPosts(from api: FeedAPIProtocol, combineWith postsFromStore: [Post], in context: NSManagedObjectContext) -> Observable<[Post]> {
+        let maxAttempts = 3
+        
         return api.loadPosts()
             .flatMap { postRepresentations -> Observable<[Post]> in
                 let syncedPosts = try syncPersistentStore(postsFromStore, with: postRepresentations, in: context)
                 return syncedPosts
             }
-            .asSignal(onErrorJustReturn: postsFromStore)
-            .asObservable()
             .share(replay: 1, scope: .whileConnected)
+            // Retries on error. Delays retry with each succession.
+            .retryWhen { error in
+                return error.enumerated().flatMap { (attempt, error) -> Observable<Int> in
+                    if attempt >= maxAttempts - 1 {
+                        return Observable.error(error)
+                    }
+                    return Observable<Int>.timer(Double(attempt * 2), scheduler: MainScheduler.instance).take(1)
+                }
+            }
+            .catchError { error in
+                return Observable.from(optional: postsFromStore)
+            }
     }
     
     static func loadComments(from api: FeedAPIProtocol) -> Observable<[Comment]> {
