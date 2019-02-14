@@ -25,7 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.makeKeyAndVisible()
         
+        setupAppearance()
+        
         return true
+    }
+    
+    private func setupAppearance() {
+        Appearance.setupNavBar()
     }
 
 }
