@@ -12,24 +12,24 @@ import RxCocoa
 
 class FeedViewController: UIViewController {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var barButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
-    private let feedViewModel: FeedViewModel
+    var feedViewModel: FeedViewModel?
+    var appCoordinatorDelegate: AppCoordinatorDelegate?
     private let disposeBag = DisposeBag()
     
-    required init?(coder aDecoder: NSCoder) {
-        // TODO: Move to coordinator
-        let loader = FeedLoader(api: FeedAPI(), store: FeedStore())
-        self.feedViewModel = FeedViewModel(loader: loader)
-        super.init(coder: aDecoder)
-    }
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bindToViewModel()
     }
     
-    private func bindToViewModel() {
+    // MARK: - Event handlers
+    
+    func bindToViewModel() {
         // Combine observables for initial fetch and refresh.
         let fetchPosts = PublishSubject<Void>()
         // TODO: Change to refresh control.
@@ -37,11 +37,27 @@ class FeedViewController: UIViewController {
         let fetchObservable = Observable.of(fetchPosts.asObservable(), refreshPosts.asObservable()).merge()
         
         // Setup view model input and generate output.
-        let input = FeedViewModel.Input(fetch: fetchObservable)
-        let output = feedViewModel.transform(input: input)
+        let viewModelInput = FeedViewModel.Input(fetch: fetchObservable)
+        guard let viewModelOutput = feedViewModel?.transform(input: viewModelInput) else { return }
         
+        bindTableView(to: viewModelOutput)
+        bindItemSelectedEvent(to: viewModelOutput)
+        bindErrorEvent(to: viewModelOutput)
+        
+        // Trigger initial fetch.
+        fetchPosts.onNext(())
+    }
+    
+    private func bindTableView(to viewModelOutput: FeedViewModel.Output) {
         // Bind tableview to the view model's output.
-        output.posts
+        viewModelOutput.posts
+            // Transform view model to a list of titles.
+            .flatMap { viewPosts -> Observable<[String]> in
+                let titles = viewPosts.map { $0.title }
+                return Observable.from(optional: titles)
+            }
+            // TODO: Change
+            .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items) {
                 (tableView: UITableView, index: Int, element: String) in
                 let cell = UITableViewCell(style: .default, reuseIdentifier: "PostCell")
@@ -49,9 +65,41 @@ class FeedViewController: UIViewController {
                 return cell
             }
             .disposed(by: disposeBag)
-        
-        // Trigger initial fetch.
-        fetchPosts.onNext(())
+    }
+    
+    private func bindItemSelectedEvent(to viewModelOutput: FeedViewModel.Output) {
+        // Handle selected item event.
+        tableView.rx
+            .itemSelected
+            .withLatestFrom(viewModelOutput.posts.asObservable()) { (indexPath, posts) -> FeedViewModel.ViewPost in
+                return posts[indexPath.row]
+            }
+            .subscribe({ [weak self] post in
+                // Let app coordinator know that post was tapped and pass along post/user ids.
+                if let post = post.element {
+                    self?.appCoordinatorDelegate?.didTapOnPost(with: post.postId, userId: post.userId)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindErrorEvent(to viewModelOutput: FeedViewModel.Output) {
+        viewModelOutput.error
+            .asObservable()
+            .observeOn(MainScheduler.instance)
+            .filter { $0.type != .none }
+            .take(1)
+            .subscribe(onNext: { [weak self] error in
+                self?.show(error: error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    // MARK: - UI
+    
+    private func show(error: FeedError) {
+        let errorView = ErrorView(message: error.message)
+        errorView.show(in: self)
     }
 
 }

@@ -20,7 +20,7 @@ class PostDetailViewModel: ViewModelType {
     
     // MARK: - Properties
     
-    /// Refers to a view post detail model (consisting of a author, description, and number of comments) to be consumed by the view.
+    /// Refers to a view model to be consumed by the view.
     typealias ViewPostDetail = (author: String, description: String, commentCount: Int)
     
     let postId: Variable<Int>
@@ -38,10 +38,9 @@ class PostDetailViewModel: ViewModelType {
     
     // MARK: - Output
     
-    /// Output which exposes an observable sequence for post details.
+    /// Output which exposes an observable sequence of post details.
     struct Output {
-        let postDetail: Observable<ViewPostDetail>
-        //let postDetail: Driver<ViewPostDetail>
+        let postDetail: Driver<ViewPostDetail>
     }
     
     // MARK: - Init
@@ -54,9 +53,9 @@ class PostDetailViewModel: ViewModelType {
     
     // MARK: - Public methods
     
-    /// Transforms a fetch event and returns an observable sequence for post details.
+    /// Transforms a fetch event to an observable sequence for post details.
     func transform(input: PostDetailViewModel.Input) -> PostDetailViewModel.Output {
-        let posts = loader.posts
+        let posts = Observable<[Post]>.empty() //loader.posts
         let comments = loader.comments
         let users = loader.users
         
@@ -79,7 +78,7 @@ class PostDetailViewModel: ViewModelType {
                 }
             }
             // TODO: handle error
-            //.asDriver(onErrorJustReturn: (author: "", description: "", commentCount: 0))
+            .asDriver(onErrorJustReturn: (author: "", description: "", commentCount: 0))
         
         return Output(postDetail: postDetail)
     }

@@ -93,8 +93,7 @@ struct FeedAPI: FeedAPIProtocol {
                 
                 do {
                     let resource = try JSONDecoder().decode(Resource.self, from: data)
-                    observer.onError(FeedError.Types.noConnection)
-                    //observer.onNext(resource)
+                    observer.onNext(resource)
                 } catch {
                     NSLog("Error decoding data: \(error)")
                     observer.onError(FeedError.Types.decodingFailed)

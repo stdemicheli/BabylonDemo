@@ -76,6 +76,12 @@ class FeedLoader {
                 return Observable.from(optional: comments)
             }
             .share(replay: 1, scope: .whileConnected)
+            .catchError { error in
+                if let feedError = error as? FeedError.Types {
+                    self.error.value = FeedError(type: feedError)
+                }
+                return Observable.from(optional: [])
+            }
     }
     
     func loadUsers() -> Observable<[User]> {
@@ -86,6 +92,12 @@ class FeedLoader {
                 return Observable.from(optional: users)
             }
             .share(replay: 1, scope: .whileConnected)
+            .catchError { error in
+                if let feedError = error as? FeedError.Types {
+                    self.error.value = FeedError(type: feedError)
+                }
+                return Observable.from(optional: [])
+            }
     }
     
     // MARK: - Private methods

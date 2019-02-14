@@ -20,8 +20,8 @@ class FeedViewModel: ViewModelType {
     
     // MARK: - Properties
     
-    /// Refers to a view post model (consisting of a title) to be consumed by the view.
-    typealias ViewPost = String
+    /// Refers to a view model to be consumed by the view.
+    typealias ViewPost = (title: String, postId: Int, userId: Int)
     private let loader: FeedLoader
     private let disposeBag = DisposeBag()
     
@@ -34,9 +34,10 @@ class FeedViewModel: ViewModelType {
     
     // MARK: - Output
     
-    /// Output which exposes an observable sequence for posts.
+    /// Output which exposes an observable sequence of post arrays.
     struct Output {
-        let posts: Driver<[ViewPost]>
+        let posts: Observable<[ViewPost]>
+        let error: Variable<FeedError>
     }
     
     // MARK: - Init
@@ -47,7 +48,7 @@ class FeedViewModel: ViewModelType {
     
     // MARK: - Public methods
     
-    /// Transforms a fetch event and returns an observable sequence for posts.
+    /// Transforms a fetch event to an observable sequence for posts.
     func transform(input: FeedViewModel.Input) -> FeedViewModel.Output {
         let posts = input.fetch
             // Load posts and return an empty observable if nil.
@@ -56,13 +57,13 @@ class FeedViewModel: ViewModelType {
             }
             // Transform Post models into View Post models.
             .flatMap { posts -> Observable<[ViewPost]> in
-                let titles = posts.compactMap { $0.title }
-                return Observable.from(optional: titles)
+                let viewPosts = posts.compactMap { (title: $0.title!, postId: Int($0.identifier), userId: Int($0.userIdentifier)) }
+                return Observable.from(optional: viewPosts)
             }
-            // Handle errors gracefully by returning an empty array.
-            .asDriver(onErrorJustReturn: [])
         
-        return Output(posts: posts)
+        let error = loader.error
+        
+        return Output(posts: posts, error: error)
     }
     
 }
