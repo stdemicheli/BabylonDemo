@@ -11,6 +11,7 @@
 		3D308B6C22149F2600FC49C1 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D308B6B22149F2600FC49C1 /* Appearance.swift */; };
 		3D308B6E22149F2D00FC49C1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D308B6D22149F2D00FC49C1 /* Colors.swift */; };
 		3D308B722214B83900FC49C1 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D308B712214B7AD00FC49C1 /* Montserrat-SemiBold.ttf */; };
+		3D3253432216356A003B65C3 /* PostDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3253422216356A003B65C3 /* PostDetailViewModelTests.swift */; };
 		3D39737022157175003D45FD /* RepresentationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39736F22157175003D45FD /* RepresentationProtocol.swift */; };
 		3D3973722215D74F003D45FD /* FeedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3973712215D74F003D45FD /* FeedError.swift */; };
 		3D397388221603D4003D45FD /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D397387221603D4003D45FD /* ErrorView.swift */; };
@@ -35,6 +36,8 @@
 		3D4E8C1F2211A36E00644FA1 /* Feed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C1D2211A36E00644FA1 /* Feed.xcdatamodeld */; };
 		3D4E8C212211A9B800644FA1 /* FeedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C202211A9B800644FA1 /* FeedAPI.swift */; };
 		3D4E8C232211B88100644FA1 /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C222211B88100644FA1 /* FeedLoader.swift */; };
+		3DB82FA62216D6BA00BF3E81 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB82FA52216D6BA00BF3E81 /* main.swift */; };
+		3DB82FA82216D71F00BF3E81 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB82FA72216D71F00BF3E81 /* TestingAppDelegate.swift */; };
 		F30E8B8765CF22AEB60B4FED /* Pods_BabylonDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4980E3A8E57C0C14BE2DF316 /* Pods_BabylonDemoTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +56,7 @@
 		3D308B6B22149F2600FC49C1 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		3D308B6D22149F2D00FC49C1 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3D308B712214B7AD00FC49C1 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
+		3D3253422216356A003B65C3 /* PostDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModelTests.swift; sourceTree = "<group>"; };
 		3D39736F22157175003D45FD /* RepresentationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepresentationProtocol.swift; sourceTree = "<group>"; };
 		3D3973712215D74F003D45FD /* FeedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedError.swift; sourceTree = "<group>"; };
 		3D397387221603D4003D45FD /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -81,6 +85,8 @@
 		3D4E8C1E2211A36E00644FA1 /* Feed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Feed.xcdatamodel; sourceTree = "<group>"; };
 		3D4E8C202211A9B800644FA1 /* FeedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAPI.swift; sourceTree = "<group>"; };
 		3D4E8C222211B88100644FA1 /* FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoader.swift; sourceTree = "<group>"; };
+		3DB82FA52216D6BA00BF3E81 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3DB82FA72216D71F00BF3E81 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		4980E3A8E57C0C14BE2DF316 /* Pods_BabylonDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabylonDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		686B912F40E3092E35C074BD /* Pods-BabylonDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabylonDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-BabylonDemo/Pods-BabylonDemo.release.xcconfig"; sourceTree = "<group>"; };
 		6EF5041803540F2E75E8D6FA /* Pods-BabylonDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BabylonDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BabylonDemoTests/Pods-BabylonDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +156,7 @@
 		3D4E8BEA22118E8900644FA1 /* BabylonDemo */ = {
 			isa = PBXGroup;
 			children = (
+				3DB82FA52216D6BA00BF3E81 /* main.swift */,
 				3D4E8BEB22118E8900644FA1 /* AppDelegate.swift */,
 				3D3F5AA722146A3B00E09F86 /* AppCoordinator.swift */,
 				3D4E8C0122118FDF00644FA1 /* Models */,
@@ -224,6 +231,7 @@
 			children = (
 				3D4E8C122211916000644FA1 /* Mocks */,
 				3D4382BA221340930046D568 /* FeedViewModelTests.swift */,
+				3D3253422216356A003B65C3 /* PostDetailViewModelTests.swift */,
 				3D4E8C0A2211906A00644FA1 /* Info.plist */,
 			);
 			path = BabylonDemoTests;
@@ -250,6 +258,7 @@
 			children = (
 				3D4382BC221341AA0046D568 /* TestData.swift */,
 				3D4382C222134A040046D568 /* MockLoader.swift */,
+				3DB82FA72216D71F00BF3E81 /* TestingAppDelegate.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -463,6 +472,7 @@
 				3D4E8C1822119C1C00644FA1 /* CommentRepresentation.swift in Sources */,
 				3D4E8C1A2211A2A700644FA1 /* UserRepresentation.swift in Sources */,
 				3D3F5AA4221426AC00E09F86 /* PostDetailViewModel.swift in Sources */,
+				3DB82FA62216D6BA00BF3E81 /* main.swift in Sources */,
 				3D3973722215D74F003D45FD /* FeedError.swift in Sources */,
 				3D4E8C1F2211A36E00644FA1 /* Feed.xcdatamodeld in Sources */,
 				3D4E8C16221192FF00644FA1 /* PostRepresentation.swift in Sources */,
@@ -482,7 +492,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DB82FA82216D71F00BF3E81 /* TestingAppDelegate.swift in Sources */,
 				3D4382C322134A040046D568 /* MockLoader.swift in Sources */,
+				3D3253432216356A003B65C3 /* PostDetailViewModelTests.swift in Sources */,
 				3D4382BD221341AA0046D568 /* TestData.swift in Sources */,
 				3D4382BB221340930046D568 /* FeedViewModelTests.swift in Sources */,
 			);

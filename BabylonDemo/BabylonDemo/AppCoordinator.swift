@@ -57,6 +57,7 @@ class AppCoordinator: AppCoordinatorDelegate {
     
     func setupNavigationController() {
         navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.navigationBar.tintColor = UIColor.cream
     }
     
 }

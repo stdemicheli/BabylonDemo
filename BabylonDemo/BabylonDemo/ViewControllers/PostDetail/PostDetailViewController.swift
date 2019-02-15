@@ -14,6 +14,7 @@ class PostDetailViewController: UIViewController {
     
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var commentCountLabel: UILabel!
     var postDetailViewModel: PostDetailViewModel?
     private let disposeBag = DisposeBag()
     
@@ -34,21 +35,43 @@ class PostDetailViewController: UIViewController {
         guard let viewModelOutput = postDetailViewModel?.transform(input: viewModelInput) else { return }
 
         // Bind UI elements to the view model's output.
-        viewModelOutput.postDetail
-            .map { $0.author }
-            .drive(authorLabel.rx.text)
-            .disposed(by: disposeBag)
         
-        viewModelOutput.postDetail
-            .map { $0.description }
-            .drive(descriptionLabel.rx.text)
-            .disposed(by: disposeBag)
-        
+        bindAuthorLabel(to: viewModelOutput)
+        bindDescriptionLabel(to: viewModelOutput)
+        bindCommentCountLabel(to: viewModelOutput)
         bindErrorEvent(to: viewModelOutput)
 
         // Trigger initial fetch.
         fetchObservable.onNext(())
         
+    }
+    
+    private func bindAuthorLabel(to viewModelOutput: PostDetailViewModel.Output) {
+        viewModelOutput.postDetail
+            .map { $0.author }
+            .drive(authorLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindDescriptionLabel(to viewModelOutput: PostDetailViewModel.Output) {
+        viewModelOutput.postDetail
+            .map { $0.description }
+            .drive(descriptionLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindCommentCountLabel(to viewModelOutput: PostDetailViewModel.Output) {
+        viewModelOutput.postDetail
+            .map { postDetail in
+                let count = postDetail.commentCount
+                if count == 1 {
+                    return "\(count) comment"
+                } else {
+                    return "\(count) comments"
+                }
+            }
+            .drive(commentCountLabel.rx.text)
+            .disposed(by: disposeBag)
     }
     
     private func bindErrorEvent(to viewModelOutput: PostDetailViewModel.Output) {

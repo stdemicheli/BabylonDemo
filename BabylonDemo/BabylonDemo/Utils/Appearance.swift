@@ -18,9 +18,13 @@ struct Appearance {
     static func setupNavBar() {
         UINavigationBar.appearance().barTintColor = UIColor.aztec
         UINavigationBar.appearance().tintColor = UIColor.cream
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: Appearance.appFont(with: 20)]
-        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: Appearance.appFont(with: 30)]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.cream, NSAttributedString.Key.font: Appearance.appFont(with: 20)]
+        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.cream, NSAttributedString.Key.font: Appearance.appFont(with: 40)]
         UINavigationBar.appearance().isTranslucent = false
+    }
+    
+    static func setupViews() {
+        UIView.appearance().backgroundColor = UIColor.aztec
     }
     
 }

@@ -58,12 +58,10 @@ class FeedViewController: UIViewController {
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items) {
                 (tableView: UITableView, index: Int, element: String) in
-                let cell = UITableViewCell(style: .default, reuseIdentifier: "PostCell")
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") else { return UITableViewCell() }
                 cell.textLabel?.text = element
                 cell.textLabel?.textColor = UIColor.cream
-                cell.textLabel?.numberOfLines = 0
                 cell.backgroundColor = UIColor.aztec
-                cell.selectionStyle = .none
                 return cell
             }
             .disposed(by: disposeBag)

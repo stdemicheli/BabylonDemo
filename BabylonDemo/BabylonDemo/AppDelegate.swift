@@ -14,16 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appCoordinator: AppCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        
+        // Setup window.
         let navigationController = UINavigationController()
+        window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         
+        // Setup app coordinator which handles the app's navigation.
         appCoordinator = AppCoordinator(navigationController: navigationController)
         appCoordinator?.start()
         
-        window?.makeKeyAndVisible()
-        
+        // Setup UI appearance.
         setupAppearance()
         
         return true
@@ -31,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupAppearance() {
         Appearance.setupNavBar()
+        Appearance.setupViews()
     }
 
 }
