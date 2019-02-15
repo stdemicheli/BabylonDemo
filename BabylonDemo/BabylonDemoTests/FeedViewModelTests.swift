@@ -7,23 +7,51 @@
 //
 
 import XCTest
+import CoreData
 import RxSwift
 
 @testable import BabylonDemo
 
 class FeedViewModelTests: XCTestCase {
     
+    // MARK: - Setup
+    
     var feedViewModel: FeedViewModel!
     var mockLoader: MockLoader!
     var disposeBag = DisposeBag()
     
+    var managedObjectModel: NSManagedObjectModel = {
+        let managedObjectModel = NSManagedObjectModel.mergedModel(from: [Bundle.main])!
+        return managedObjectModel
+    }()
+    
+    /// A mock persistence container which uses a volatile, in-memory persistence storage component.
+    lazy var mockPersistantContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "CoreDataUnitTesting", managedObjectModel: self.managedObjectModel)
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType
+        description.shouldAddStoreAsynchronously = false
+        
+        container.persistentStoreDescriptions = [description]
+        container.loadPersistentStores { (description, error) in
+            precondition( description.type == NSInMemoryStoreType )
+            
+            if let error = error {
+                fatalError("Failed to load persistent store: \(error)")
+            }
+        }
+        return container
+    }()
+    
     override func setUp() {
         super.setUp()
         
-        let mockLoader = MockLoader()
-        self.mockLoader = mockLoader
+        mockLoader = MockLoader()
+        
         let testAPI = FeedAPI(dataLoader: mockLoader)
-        let feedLoader = FeedLoader(api: testAPI, store: FeedStore())
+        let testStore = FeedStore()
+        testStore.container = mockPersistantContainer
+        let feedLoader = FeedLoader(api: testAPI, store: testStore)
         
         feedViewModel = FeedViewModel(loader: feedLoader)
     }

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RxSwift
+import CoreData
 
 @testable import BabylonDemo
 
@@ -56,4 +58,27 @@ class URLSessionDataTaskMock: URLSessionDataTask {
     
     override func cancel() { }
     
+}
+
+class MockFeedLoader: FeedLoader {
+    
+    var shouldThrowError = false
+    
+    override func loadPosts(with postsFromStore: [Post], in context: NSManagedObjectContext) -> Observable<[Post]> {
+        return shouldThrowError
+            ? Observable.error(FeedError.Types.noConnection)
+            : Observable.from(optional: [TestData.PostDetail.testPost])
+    }
+    
+    override func loadComments() -> Observable<[Comment]> {
+        return shouldThrowError
+            ? Observable.error(FeedError.Types.noConnection)
+            : Observable.from(optional: [TestData.PostDetail.testComment])
+    }
+    
+    override func loadUsers() -> Observable<[User]> {
+        return shouldThrowError
+            ? Observable.error(FeedError.Types.noConnection)
+            : Observable.from(optional: [TestData.PostDetail.testUser])
+    }
 }

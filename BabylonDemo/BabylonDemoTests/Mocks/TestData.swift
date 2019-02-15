@@ -86,6 +86,10 @@ struct TestData {
         }
         """.data(using: .utf8)!
         
+        static let testPost = Post(identifier: 1, userIdentifier: 1, title: "test", body: "test")
+        static let testComment = Comment(identifier: 1, postIdentifier: 1, name: "test", body: "test", email: "test")
+        static let testUser = User(identifier: 1, name: "test", username: "test", email: "test")
+        
         static let expectedAuthor = "test"
         static let expectedDescription = "test"
         static let expectedNumberOfComments = 1
