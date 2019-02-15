@@ -69,6 +69,7 @@ class FeedStore: FeedPersistenceStoreProtocol {
         if let error = error { throw error }
     }
     
+    /// Loads a specific feed object from the local persistence store.
     func load<Resource: NSManagedObject>(with identifier: Int, context: NSManagedObjectContext) -> Resource? {
         var resource: Resource? = nil
         
@@ -87,10 +88,13 @@ class FeedStore: FeedPersistenceStoreProtocol {
         return resource
     }
     
+    /// Loads all recent feed objects from the local persistence store.
     func load<Resource: NSManagedObject>(recent fetchLimit: Int, in context: NSManagedObjectContext) -> [Resource] {
         var resource = [Resource]()
         
-        let fetchRequest: NSFetchRequest<Resource> = Resource.fetchRequest() as! NSFetchRequest<Resource>
+        let entityName = String(describing: Resource.self)
+        let fetchRequest = NSFetchRequest<Resource>(entityName: entityName)
+        
         let idSortDescriptor = NSSortDescriptor(key: "identifier", ascending: false)
         fetchRequest.sortDescriptors = [idSortDescriptor]
         fetchRequest.fetchLimit = fetchLimit

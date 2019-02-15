@@ -18,14 +18,12 @@ class AppCoordinator: AppCoordinatorDelegate {
     let navigationController: UINavigationController
     let feedLoader: FeedLoader
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, feedAPI: FeedAPIProtocol = FeedAPI(), feedStore: FeedPersistenceStoreProtocol = FeedStore()) {
         self.navigationController = navigationController
 
-        let feedAPI = FeedAPI()
-        let feedStore = FeedStore()
         feedLoader = FeedLoader(api: feedAPI, store: feedStore)
         
-        setupViews()
+        setupNavigationController()
     }
     
     // MARK: - Navigation
@@ -57,7 +55,7 @@ class AppCoordinator: AppCoordinatorDelegate {
     
     // MARK: - Setup
     
-    func setupViews() {
+    func setupNavigationController() {
         navigationController.navigationBar.prefersLargeTitles = true
     }
     

@@ -73,7 +73,7 @@ struct FeedAPI: FeedAPIProtocol {
             let dataTask = self.dataLoader.loadData(from: url) {data, res, error in
                 if let error = error {
                     NSLog("Error with FETCH urlRequest: \(error)")
-                    observer.onError(FeedError.Types.requestFailed)
+                    observer.onError(FeedError.Types.noConnection)
                     return
                 }
                 

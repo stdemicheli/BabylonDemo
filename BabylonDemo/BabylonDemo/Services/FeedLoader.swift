@@ -42,10 +42,13 @@ class FeedLoader {
         setupOutput()
     }
     
+    /// Setup of output to be consumed by view models.
     private func setupOutput() {
+        // Load posts from the local store in a background context.
         let backgroundContext = feedStore.container.newBackgroundContext()
         let postsFromStore: [Post] = feedStore.load(recent: 100, in: backgroundContext)
         
+        // Setup observables subscribed to by view models.
         posts = loadPosts(with: postsFromStore, in: backgroundContext)
         comments = loadComments()
         users = loadUsers()
@@ -53,6 +56,7 @@ class FeedLoader {
     
     // MARK: - Feed loader
     
+    /// Loads posts from the network and then synchronizes with local store.
     func loadPosts(with postsFromStore: [Post], in context: NSManagedObjectContext) -> Observable<[Post]> {
         return feedAPI.loadPosts()
             .flatMap { [weak self] postRepresentations -> Observable<[Post]> in
@@ -68,6 +72,7 @@ class FeedLoader {
             }
     }
     
+    /// Loads comments from the network.
     func loadComments() -> Observable<[Comment]> {
         return feedAPI.loadComments()
             // Map JSON representation to Core Data model.
@@ -84,6 +89,7 @@ class FeedLoader {
             }
     }
     
+    /// Loads users from the network.
     func loadUsers() -> Observable<[User]> {
         return feedAPI.loadUsers()
             // Map JSON representation to Core Data model.
@@ -102,13 +108,16 @@ class FeedLoader {
     
     // MARK: - Private methods
     
+    /// Synchronizes fetched JSON post representations with posts fetched from the local store.
     private func syncPersistentStore(_ store: [Post], with postRepresentations: [PostRepresentation], in context: NSManagedObjectContext) throws -> Observable<[Post]>  {
         var error: Error?
         let postIds = Set(store.map { Int($0.identifier) })
         var posts = store
         
+        // Check if post representation already exists in our local store.
         for postRepresentation in postRepresentations {
             if !postIds.contains(postRepresentation.identifier) {
+                // Create a new post if we haven't previously saved it and add it to the front of the array as the most recent post.
                 let post = Post(postRepresentation: postRepresentation, context: context)
                 posts.insert(post, at: 0)
             }
