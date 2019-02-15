@@ -18,10 +18,10 @@ class AppCoordinator: AppCoordinatorDelegate {
     let navigationController: UINavigationController
     let feedLoader: FeedLoader
     
-    init(navigationController: UINavigationController, feedAPI: FeedAPIProtocol = FeedAPI(), feedStore: FeedPersistenceStoreProtocol = FeedStore()) {
+    init(navigationController: UINavigationController, feedAPI: FeedAPIProtocol = FeedAPI()) {
         self.navigationController = navigationController
 
-        feedLoader = FeedLoader(api: feedAPI, store: feedStore)
+        feedLoader = FeedLoader(api: feedAPI)
         
         setupNavigationController()
     }

@@ -31,7 +31,7 @@ class FeedLoader {
     
     // MARK: - Init
     
-    init(api: FeedAPIProtocol, store: FeedPersistenceStoreProtocol) {
+    init(api: FeedAPIProtocol, store: FeedPersistenceStoreProtocol = FeedStore.shared) {
         self.feedAPI = api
         self.feedStore = store
         self.posts = Observable.empty()

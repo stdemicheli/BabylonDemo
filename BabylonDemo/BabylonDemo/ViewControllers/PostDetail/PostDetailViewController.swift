@@ -95,6 +95,9 @@ class PostDetailViewController: UIViewController {
     
     private func setupViews() {
         title = "Post"
+        authorLabel.adjustsFontForContentSizeCategory = false
+        descriptionLabel.adjustsFontForContentSizeCategory = false
+        commentCountLabel.adjustsFontForContentSizeCategory = false
     }
     
 }
