@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 extension UIColor {
+    
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
     }
@@ -31,4 +32,5 @@ extension UIColor {
     static let nightSkyDark = UIColor.rgb(red: 11, green: 19, blue: 43)
     static let morningSkyBlue = UIColor.rgb(red: 105, green: 221, blue: 255)
     static let brightSky = UIColor.rgb(red: 157, green: 228, blue: 242)
+    
 }

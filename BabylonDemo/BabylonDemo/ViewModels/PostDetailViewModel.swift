@@ -41,6 +41,7 @@ class PostDetailViewModel: ViewModelType {
     /// Output which exposes an observable sequence of post details.
     struct Output {
         let postDetail: Driver<ViewPostDetail>
+        let error: Variable<FeedError>
     }
     
     // MARK: - Init
@@ -55,7 +56,7 @@ class PostDetailViewModel: ViewModelType {
     
     /// Transforms a fetch event to an observable sequence for post details.
     func transform(input: PostDetailViewModel.Input) -> PostDetailViewModel.Output {
-        let posts = Observable<[Post]>.empty() //loader.posts
+        let posts = loader.posts
         let comments = loader.comments
         let users = loader.users
         
@@ -66,7 +67,6 @@ class PostDetailViewModel: ViewModelType {
             }
             // Find user's name, the post body, and get the comment count.
             .flatMap { [weak self] feed -> Observable<ViewPostDetail> in
-                // TODO: add loadPost to loader that shares the latest fetch instead of refetching
                 let author = feed.2.first(where: { Int($0.identifier) == self?.userId.value })?.name
                 let postBody = feed.0.first(where: { Int($0.identifier) == self?.postId.value })?.body
                 let commentCount = feed.1.filter { Int($0.postIdentifier) == self?.postId.value }.count
@@ -77,10 +77,12 @@ class PostDetailViewModel: ViewModelType {
                     throw ViewModelErrors.valueNotFound
                 }
             }
-            // TODO: handle error
+            // Errors are handled through a separate observer, so we handle them gracefully for the UI.
             .asDriver(onErrorJustReturn: (author: "", description: "", commentCount: 0))
         
-        return Output(postDetail: postDetail)
+        let error = loader.error
+        
+        return Output(postDetail: postDetail, error: error)
     }
     
     // MARK: - Private methods

@@ -23,28 +23,51 @@ class PostDetailViewController: UIViewController {
         bindToViewModel()
     }
     
+    // MARK: - Event handlers
+    
     private func bindToViewModel() {
         // Creates a subject used for the view model input and triggering initial fetch.
         let fetchObservable = PublishSubject<Void>()
 
         // Setup view model input and generate output.
-        let input = PostDetailViewModel.Input(fetch: fetchObservable)
-        let output = postDetailViewModel?.transform(input: input)
+        let viewModelInput = PostDetailViewModel.Input(fetch: fetchObservable)
+        guard let viewModelOutput = postDetailViewModel?.transform(input: viewModelInput) else { return }
 
         // Bind UI elements to the view model's output.
-        output?.postDetail
+        viewModelOutput.postDetail
             .map { $0.author }
             .drive(authorLabel.rx.text)
             .disposed(by: disposeBag)
         
-        output?.postDetail
+        viewModelOutput.postDetail
             .map { $0.description }
             .drive(descriptionLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        bindErrorEvent(to: viewModelOutput)
 
         // Trigger initial fetch.
         fetchObservable.onNext(())
         
+    }
+    
+    private func bindErrorEvent(to viewModelOutput: PostDetailViewModel.Output) {
+        viewModelOutput.error
+            .asObservable()
+            .observeOn(MainScheduler.instance)
+            .filter { $0.type != .none }
+            .take(1)
+            .subscribe(onNext: { [weak self] error in
+                self?.show(error: error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    // MARK: - UI
+    
+    private func show(error: FeedError) {
+        let errorView = ErrorView(message: error.message)
+        errorView.show(in: self)
     }
     
     private func setupViews() {

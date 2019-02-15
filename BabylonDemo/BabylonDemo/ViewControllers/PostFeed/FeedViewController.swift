@@ -24,20 +24,18 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
         bindToViewModel()
     }
     
     // MARK: - Event handlers
     
     func bindToViewModel() {
-        // Combine observables for initial fetch and refresh.
+        // Subject for triggering initial fetch.
         let fetchPosts = PublishSubject<Void>()
-        // TODO: Change to refresh control.
-        let refreshPosts = barButton.rx.tap
-        let fetchObservable = Observable.of(fetchPosts.asObservable(), refreshPosts.asObservable()).merge()
         
         // Setup view model input and generate output.
-        let viewModelInput = FeedViewModel.Input(fetch: fetchObservable)
+        let viewModelInput = FeedViewModel.Input(fetch: fetchPosts)
         guard let viewModelOutput = feedViewModel?.transform(input: viewModelInput) else { return }
         
         bindTableView(to: viewModelOutput)
@@ -56,12 +54,16 @@ class FeedViewController: UIViewController {
                 let titles = viewPosts.map { $0.title }
                 return Observable.from(optional: titles)
             }
-            // TODO: Change
+            // Errors are handled through a separate observer, so we handle them gracefully for tableviews.
             .asDriver(onErrorJustReturn: [])
             .drive(tableView.rx.items) {
                 (tableView: UITableView, index: Int, element: String) in
                 let cell = UITableViewCell(style: .default, reuseIdentifier: "PostCell")
                 cell.textLabel?.text = element
+                cell.textLabel?.textColor = UIColor.cream
+                cell.textLabel?.numberOfLines = 0
+                cell.backgroundColor = UIColor.aztec
+                cell.selectionStyle = .none
                 return cell
             }
             .disposed(by: disposeBag)
@@ -100,6 +102,10 @@ class FeedViewController: UIViewController {
     private func show(error: FeedError) {
         let errorView = ErrorView(message: error.message)
         errorView.show(in: self)
+    }
+    
+    private func setupViews() {
+        tableView.backgroundColor = UIColor.aztec
     }
 
 }
