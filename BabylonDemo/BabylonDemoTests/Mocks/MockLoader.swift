@@ -12,13 +12,13 @@ import Foundation
 
 class MockLoader: DataLoader {
     
-    init(data: Data?, error: Error?) {
+    init(data: Data? = nil, error: Error? = nil) {
         self.data = data
         self.error = error
     }
     
     var data: Data?
-    let error: Error?
+    var error: Error?
     private(set) var request: URLRequest? = nil
     private(set) var url: URL? = nil
         

@@ -14,23 +14,22 @@ import RxSwift
 class FeedViewModelTests: XCTestCase {
     
     var feedViewModel: FeedViewModel!
-    var feedLoader: FeedLoader!
-    var testAPI: FeedAPIProtocol!
     var mockLoader: MockLoader!
     var disposeBag = DisposeBag()
     
     override func setUp() {
         super.setUp()
         
-        mockLoader = MockLoader(data: nil, error: nil)
-        testAPI = FeedAPI(dataLoader: mockLoader)
-        feedLoader = FeedLoader(api: testAPI, store: FeedStore())
+        let mockLoader = MockLoader()
+        self.mockLoader = mockLoader
+        let testAPI = FeedAPI(dataLoader: mockLoader)
+        let feedLoader = FeedLoader(api: testAPI, store: FeedStore())
+        
         feedViewModel = FeedViewModel(loader: feedLoader)
     }
     
     override func tearDown() {
-        feedLoader = nil
-        testAPI = nil
+        feedViewModel = nil
         mockLoader = nil
         
         super.tearDown()
@@ -42,6 +41,7 @@ class FeedViewModelTests: XCTestCase {
         // given
         mockLoader.data = TestData.Feed.validPostJSON
         let testSubject = PublishSubject<Void>()
+        let expectation = self.expectation(description: "test_whenFetchIsTriggered_handlesInvalidPostData")
                 
         // when
         let input = FeedViewModel.Input(fetch: testSubject.asObservable())
@@ -49,23 +49,25 @@ class FeedViewModelTests: XCTestCase {
 
         output.posts.asObservable()
             .subscribe(onNext: { post in
+                guard let postTitle = post.first?.title else { return }
+                
                 // then
                 XCTAssertNotNil(post)
-                XCTAssertEqual(post.first, TestData.Feed.expectedTitle)
+                XCTAssertEqual(postTitle, TestData.Feed.expectedTitle)
+                expectation.fulfill()
             })
             .disposed(by: disposeBag)
         
         testSubject.onNext(())
         
-        // then
-        XCTAssertNotNil(input)
-        XCTAssertNotNil(output)
+        waitForExpectations(timeout: 2.0, handler: nil)
     }
     
     func test_whenFetchIsTriggered_handlesInvalidPostData() {
         // given
         mockLoader.data = TestData.Feed.invalidPostJSON
         let testSubject = PublishSubject<Void>()
+        let expectation = self.expectation(description: "test_whenFetchIsTriggered_handlesInvalidPostData")
         
         // when
         let input = FeedViewModel.Input(fetch: testSubject.asObservable())
@@ -76,14 +78,44 @@ class FeedViewModelTests: XCTestCase {
                 // then
                 XCTAssertNotNil(post)
                 XCTAssertTrue(post.isEmpty)
+                expectation.fulfill()
             })
             .disposed(by: disposeBag)
         
         testSubject.onNext(())
         
-        // then
-        XCTAssertNotNil(input)
-        XCTAssertNotNil(output)
+        waitForExpectations(timeout: 2.0, handler: nil)
+    }
+    
+    func test_whenErrorIsThrown_handlesErrors() {
+        // given
+        let feedError = FeedError(type: .noConnection)
+        mockLoader.error = feedError.type
+        
+        let testSubject = PublishSubject<Void>()
+        let expectation = self.expectation(description: "test_whenErrorIsThrown_handlesErrors")
+        
+        // when
+        let input = FeedViewModel.Input(fetch: testSubject.asObservable())
+        let output = feedViewModel.transform(input: input)
+        
+        output.posts.subscribe().disposed(by: disposeBag)
+        output.error.asObservable()
+            .observeOn(MainScheduler.instance)
+            .filter { $0.type != .none }
+            .take(1)
+            .subscribe(onNext: { error in
+                // then
+                XCTAssertNotNil(feedError)
+                XCTAssertEqual(feedError.type, TestData.PostDetail.expectedErrorType)
+                XCTAssertEqual(feedError.message, TestData.PostDetail.expectedErrorMessage)
+                expectation.fulfill()
+            })
+            .disposed(by: disposeBag)
+        
+        testSubject.onNext(())
+        
+        waitForExpectations(timeout: 2.0, handler: nil)
     }
     
     func test_whenInitialized_bindsPosts() {
@@ -96,7 +128,8 @@ class FeedViewModelTests: XCTestCase {
         let output = feedViewModel.transform(input: input)
         
         // then
-        XCTAssertNotNil(output)
+        XCTAssertNotNil(output.posts)
+        XCTAssertNotNil(output.error)
     }
         
 }
