@@ -10,6 +10,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/**
+ A view controller managing the view for post details.
+ */
+
 class PostDetailViewController: UIViewController {
     
     @IBOutlet weak var authorLabel: UILabel!

@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+/**
+ An appearance struct for defining default styling of the UI.
+ */
+
 struct Appearance {
     
     static func appFont(with size: CGFloat) -> UIFont {

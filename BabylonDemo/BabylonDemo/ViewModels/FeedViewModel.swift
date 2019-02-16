@@ -13,7 +13,7 @@ import RxCocoa
 /**
  The feed view model that handles fetch events and returns posts.
      - Input: Fetch event
-     - Output: List of posts
+     - Output: List of posts, error
  */
 
 class FeedViewModel: ViewModelType {

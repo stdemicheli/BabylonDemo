@@ -13,7 +13,7 @@ import RxCocoa
 /**
  The post detail view model that handles fetch events and returns post details.
      - Input: Fetch event
-     - Output: Post details
+     - Output: Post details, error
  */
 
 class PostDetailViewModel: ViewModelType {
@@ -74,7 +74,7 @@ class PostDetailViewModel: ViewModelType {
                 if let author = author, let postBody = postBody {
                     return Observable.of((author: author, description: postBody, commentCount: commentCount))
                 } else {
-                    throw ViewModelErrors.valueNotFound
+                    throw FeedError.Types.valueNotFound
                 }
             }
             // Errors are handled through a separate observer, so we handle them gracefully for the UI.
@@ -84,8 +84,5 @@ class PostDetailViewModel: ViewModelType {
         
         return Output(postDetail: postDetail, error: error)
     }
-    
-    // MARK: - Private methods
-    
     
 }

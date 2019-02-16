@@ -16,7 +16,7 @@ struct FeedError {
     
     /// An error type for handling errors that occur during the Feed cycle.
     enum Types: Error {
-        case requestFailed, decodingFailed, noConnection, none
+        case requestFailed, decodingFailed, noConnection, valueNotFound, none
     }
     
     /// A type indicating the feed error type.
@@ -31,6 +31,8 @@ struct FeedError {
             return "Error while fetching feed. Please try again."
         case .noConnection:
             return "No internet connection."
+        case .valueNotFound:
+            return "Could not find post."
         case .none:
             return ""
         }

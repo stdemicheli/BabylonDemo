@@ -79,6 +79,7 @@ class FeedLoader {
                             self.error.value = FeedError(type: feedError)
                         }
                     }
+                    // Return a timer which increases delay after each attempt.
                     return Observable<Int>.timer(Double(attempt * 2), scheduler: MainScheduler.instance).take(1)
                 }
             }

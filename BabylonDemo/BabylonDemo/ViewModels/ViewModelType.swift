@@ -8,13 +8,13 @@
 
 import Foundation
 
+/**
+ A protocol for view models which defines the handling of inputs and outputs.
+ */
+
 protocol ViewModelType {
     associatedtype Input
     associatedtype Output
     
     func transform(input: Input) -> Output
-}
-
-enum ViewModelErrors: Error {
-    case valueNotFound
 }

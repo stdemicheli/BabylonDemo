@@ -162,7 +162,6 @@
 				3D4E8BFF22118FBA00644FA1 /* ViewModels */,
 				3D4E8BFE22118F9F00644FA1 /* ViewControllers */,
 				3D4E8BFD22118F8000644FA1 /* Resources */,
-				3D4E8C10221190D600644FA1 /* Extensions */,
 				3D4E8C11221190DC00644FA1 /* Utils */,
 			);
 			path = BabylonDemo;
@@ -232,13 +231,6 @@
 				3D4E8C0A2211906A00644FA1 /* Info.plist */,
 			);
 			path = BabylonDemoTests;
-			sourceTree = "<group>";
-		};
-		3D4E8C10221190D600644FA1 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3D4E8C11221190DC00644FA1 /* Utils */ = {

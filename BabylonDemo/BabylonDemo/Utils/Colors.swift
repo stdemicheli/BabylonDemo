@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+/**
+ An extension for adding custom colors.
+ */
+
 extension UIColor {
     
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {

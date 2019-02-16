@@ -8,6 +8,10 @@
 
 import UIKit
 
+/**
+ An error view which fades in when an error occurs.
+ */
+
 class ErrorView: UIView {
     
     private var textLabel: UILabel = {

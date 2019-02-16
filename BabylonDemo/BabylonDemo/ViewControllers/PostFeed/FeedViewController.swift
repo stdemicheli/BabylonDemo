@@ -10,6 +10,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/**
+ A view controller managing the view for the post feed.
+ */
+
 class FeedViewController: UIViewController {
     
     // MARK: - Properties
