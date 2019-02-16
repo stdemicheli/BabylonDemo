@@ -58,52 +58,59 @@ class FeedLoader {
     
     // MARK: - Feed loader
     
-    /// Loads posts from the network and then synchronizes with local store.
+    /// Loads posts from the network and persists them locally. On error,returns locally persisted posts.
     func loadPosts(with postsFromStore: [Post], in context: NSManagedObjectContext) -> Observable<[Post]> {
         return feedAPI.loadPosts()
             .flatMap { postRepresentations -> Observable<[Post]> in
+                // Converts post representations to post models and saves them to local persistence. Uses unique constraints to avoid duplication.
                 let posts = Post.convert(from: postRepresentations, in: context)
                 return Observable<[Post]>.from(optional: posts.reversed())
             }
             .share(replay: 1, scope: .whileConnected)
             .catchError { error in
+                // Notify subscribers about the error.
                 if let feedError = error as? FeedError.Types {
                     self.error.value = FeedError(type: feedError)
                 }
+                // Return locally persisted objects.
                 return Observable.from(optional: postsFromStore)
             }
     }
     
-    /// Loads comments from the network.
+    /// Loads comments from the network and persists them locally. On error,returns locally persisted comments.
     func loadComments(with commentsFromStore: [Comment], in context: NSManagedObjectContext) -> Observable<[Comment]> {
         return feedAPI.loadComments()
-            // Map JSON representation to Core Data model.
             .flatMap { commentRepresentations -> Observable<[Comment]> in
+                // Converts comment representations to comment models and saves them to local persistence. Uses unique constraints to avoid duplication.
                 let comments = Comment.convert(from: commentRepresentations, in: context)
                 return Observable.from(optional: comments)
             }
             .share(replay: 1, scope: .whileConnected)
             .catchError { error in
+                // Notify subscribers about the error.
                 if let feedError = error as? FeedError.Types {
                     self.error.value = FeedError(type: feedError)
                 }
+                // Return locally persisted objects.
                 return Observable.from(optional: commentsFromStore)
             }
     }
     
-    /// Loads users from the network.
+    /// Loads users from the network and persists them locally. On error,returns locally persisted users.
     func loadUsers(with usersFromStore: [User], in context: NSManagedObjectContext) -> Observable<[User]> {
         return feedAPI.loadUsers()
-            // Map JSON representation to Core Data model.
             .flatMap { userRepresentations -> Observable<[User]> in
+                // Converts user representations to user models and saves them to local persistence. Uses unique constraints to avoid duplication.
                 let users = User.convert(from: userRepresentations, in: context)
                 return Observable.from(optional: users)
             }
             .share(replay: 1, scope: .whileConnected)
             .catchError { error in
+                // Notify subscribers about the error.
                 if let feedError = error as? FeedError.Types {
                     self.error.value = FeedError(type: feedError)
                 }
+                // Return locally persisted objects.
                 return Observable.from(optional: usersFromStore)
             }
     }

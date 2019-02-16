@@ -42,8 +42,9 @@ class FeedStore: FeedPersistenceStoreProtocol {
             if let error = error {
                 fatalError("Failed to load persistent store: \(error)")
             }
+            container.viewContext.automaticallyMergesChangesFromParent = true
+            container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         }
-        container.viewContext.automaticallyMergesChangesFromParent = true
         
         return container
     }()
@@ -57,7 +58,7 @@ class FeedStore: FeedPersistenceStoreProtocol {
     func save(context: NSManagedObjectContext) throws {
         var error: Error?
         
-        context.mergePolicy = NSMergePolicy.overwrite
+        //context.mergePolicy = NSMergePolicy.overwrite
         context.performAndWait {
             do {
                 try context.save()
@@ -78,7 +79,7 @@ class FeedStore: FeedPersistenceStoreProtocol {
         let predicate = NSPredicate(format: "identifier == %d", identifier)
         fetchRequest.predicate = predicate
         
-        context.perform {
+        context.performAndWait {
             do {
                 resource = try context.fetch(fetchRequest).first
             } catch {
@@ -100,7 +101,7 @@ class FeedStore: FeedPersistenceStoreProtocol {
         fetchRequest.sortDescriptors = [idSortDescriptor]
         fetchRequest.fetchLimit = fetchLimit
         
-        context.perform {
+        context.performAndWait {
             do {
                 resource = try context.fetch(fetchRequest)
             } catch {

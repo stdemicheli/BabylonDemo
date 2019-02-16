@@ -52,7 +52,7 @@ extension User {
                   context: context)
     }
     
-    /// Converts UserRepresentations into a list of User models.
+    /// Converts UserRepresentations into a list of User models and persists them locally.
     static func convert(from representations: [UserRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [User] {
         let users = representations.map { User(userRepresentation: $0, context: context) }
         

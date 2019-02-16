@@ -52,8 +52,9 @@ extension Post {
                   context: context)
     }
     
-    /// Converts PostRepresentations into a list of Post models.
+    /// Converts PostRepresentations into a list of Post models and persists them locally.
     static func convert(from representations: [PostRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [Post] {
+        
         let posts = representations.map { Post(postRepresentation: $0, context: context) }
         
         do {
