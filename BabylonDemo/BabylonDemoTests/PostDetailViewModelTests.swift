@@ -68,12 +68,11 @@ class PostDetailViewModelTests: XCTestCase {
     func test_whenFetchingForPostDetails_handlesValidPostData() {
         // given
         let testSubject = PublishSubject<Void>()
-        
-        // when
         let input = PostDetailViewModel.Input(fetch: testSubject.asObservable())
         let output = postDetailViewModel.transform(input: input)
-        let expectation = self.expectation(description: "test_whenFetchingForPostDetails_handlesValidPostData")
+        var expectation: XCTestExpectation? = self.expectation(description: "test_whenFetchingForPostDetails_handlesValidPostData")
         
+        // when
         output.postDetail.asObservable()
             .subscribe(onNext: { postDetail in
                 // then
@@ -81,23 +80,24 @@ class PostDetailViewModelTests: XCTestCase {
                 XCTAssertEqual(postDetail.author, TestData.PostDetail.expectedAuthor)
                 XCTAssertEqual(postDetail.description, TestData.PostDetail.expectedDescription)
                 XCTAssertEqual(postDetail.commentCount, TestData.PostDetail.expectedNumberOfComments)
-                expectation.fulfill()
+                expectation?.fulfill()
+                expectation = nil
             })
             .disposed(by: disposeBag)
         
         testSubject.onNext(())
         
-        waitForExpectations(timeout: 2.0, handler: nil)
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
     
     func test_whenInitialized_bindsPostDetails() {
         // given
         mockLoader.data = TestData.Feed.validPostJSON
         let testSubject = PublishSubject<Void>()
-
-        // when
         let input = PostDetailViewModel.Input(fetch: testSubject.asObservable())
         let output = postDetailViewModel.transform(input: input)
+
+        // when
 
         // then
         XCTAssertNotNil(output.postDetail)

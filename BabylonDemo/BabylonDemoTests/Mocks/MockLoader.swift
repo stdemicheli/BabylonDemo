@@ -70,13 +70,13 @@ class MockFeedLoader: FeedLoader {
             : Observable.from(optional: [TestData.PostDetail.testPost])
     }
     
-    override func loadComments() -> Observable<[Comment]> {
+    override func loadComments(with commentsFromStore: [Comment], in context: NSManagedObjectContext) -> Observable<[Comment]> {
         return shouldThrowError
             ? Observable.error(FeedError.Types.noConnection)
             : Observable.from(optional: [TestData.PostDetail.testComment])
     }
     
-    override func loadUsers() -> Observable<[User]> {
+    override func loadUsers(with usersFromStore: [User], in context: NSManagedObjectContext) -> Observable<[User]> {
         return shouldThrowError
             ? Observable.error(FeedError.Types.noConnection)
             : Observable.from(optional: [TestData.PostDetail.testUser])
