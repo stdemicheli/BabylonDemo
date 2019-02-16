@@ -13,7 +13,7 @@ import CoreData
  A comment representation model which represents a comment parsed from a JSON object.
  */
 
-struct CommentRepresentation: Codable, Representation {
+struct CommentRepresentation: Codable {
     
     let identifier: Int
     let postIdentifier: Int
@@ -57,8 +57,16 @@ extension Comment {
     }
     
     /// Converts CommentRepresentations into a list of Comment models.
-    static func convert(from representations: [CommentRepresentation]) -> [Comment] {
-        return representations.map { Comment(commentRepresentation: $0) }
+    static func convert(from representations: [CommentRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [Comment] {
+        let comments = representations.map { Comment(commentRepresentation: $0, context: context) }
+        
+        do {
+            try FeedStore.shared.save(context: context)
+        } catch {
+            NSLog("Error saving comments to local store: \(error)")
+        }
+        
+        return comments
     }
     
 }

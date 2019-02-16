@@ -47,11 +47,13 @@ class FeedLoader {
         // Load posts from the local store in a background context.
         let backgroundContext = feedStore.container.newBackgroundContext()
         let postsFromStore: [Post] = feedStore.load(recent: 100, in: backgroundContext)
+        let commentsFromStore: [Comment] = feedStore.load(recent: 500, in: backgroundContext)
+        let usersFromStore: [User] = feedStore.load(recent: 10, in: backgroundContext)
         
         // Setup observables subscribed to by view models.
         posts = loadPosts(with: postsFromStore, in: backgroundContext)
-        comments = loadComments()
-        users = loadUsers()
+        comments = loadComments(with: commentsFromStore, in: backgroundContext)
+        users = loadUsers(with: usersFromStore, in: backgroundContext)
     }
     
     // MARK: - Feed loader
@@ -59,9 +61,9 @@ class FeedLoader {
     /// Loads posts from the network and then synchronizes with local store.
     func loadPosts(with postsFromStore: [Post], in context: NSManagedObjectContext) -> Observable<[Post]> {
         return feedAPI.loadPosts()
-            .flatMap { [weak self] postRepresentations -> Observable<[Post]> in
-                let syncedPosts = try self?.syncPersistentStore(postsFromStore, with: postRepresentations, in: context)
-                return syncedPosts ?? Observable.from(optional: postsFromStore)
+            .flatMap { postRepresentations -> Observable<[Post]> in
+                let posts = Post.convert(from: postRepresentations, in: context)
+                return Observable<[Post]>.from(optional: posts.reversed())
             }
             .share(replay: 1, scope: .whileConnected)
             .catchError { error in
@@ -73,11 +75,11 @@ class FeedLoader {
     }
     
     /// Loads comments from the network.
-    func loadComments() -> Observable<[Comment]> {
+    func loadComments(with commentsFromStore: [Comment], in context: NSManagedObjectContext) -> Observable<[Comment]> {
         return feedAPI.loadComments()
             // Map JSON representation to Core Data model.
             .flatMap { commentRepresentations -> Observable<[Comment]> in
-                let comments = Comment.convert(from: commentRepresentations)
+                let comments = Comment.convert(from: commentRepresentations, in: context)
                 return Observable.from(optional: comments)
             }
             .share(replay: 1, scope: .whileConnected)
@@ -85,16 +87,16 @@ class FeedLoader {
                 if let feedError = error as? FeedError.Types {
                     self.error.value = FeedError(type: feedError)
                 }
-                return Observable.from(optional: [])
+                return Observable.from(optional: commentsFromStore)
             }
     }
     
     /// Loads users from the network.
-    func loadUsers() -> Observable<[User]> {
+    func loadUsers(with usersFromStore: [User], in context: NSManagedObjectContext) -> Observable<[User]> {
         return feedAPI.loadUsers()
             // Map JSON representation to Core Data model.
             .flatMap { userRepresentations -> Observable<[User]> in
-                let users = User.convert(from: userRepresentations)
+                let users = User.convert(from: userRepresentations, in: context)
                 return Observable.from(optional: users)
             }
             .share(replay: 1, scope: .whileConnected)
@@ -102,37 +104,8 @@ class FeedLoader {
                 if let feedError = error as? FeedError.Types {
                     self.error.value = FeedError(type: feedError)
                 }
-                return Observable.from(optional: [])
+                return Observable.from(optional: usersFromStore)
             }
-    }
-    
-    // MARK: - Private methods
-    
-    /// Synchronizes fetched JSON post representations with posts fetched from the local store.
-    private func syncPersistentStore(_ store: [Post], with postRepresentations: [PostRepresentation], in context: NSManagedObjectContext) throws -> Observable<[Post]>  {
-        var error: Error?
-        let postIds = Set(store.map { Int($0.identifier) })
-        var posts = store
-        
-        // Check if post representation already exists in our local store.
-        for postRepresentation in postRepresentations {
-            if !postIds.contains(postRepresentation.identifier) {
-                // Create a new post if we haven't previously saved it and add it to the front of the array as the most recent post.
-                let post = Post(postRepresentation: postRepresentation, context: context)
-                posts.insert(post, at: 0)
-            }
-        }
-        
-        do {
-            try FeedStore.shared.save(context: context)
-        } catch let syncError {
-            NSLog("Error syncing with persistent store: \(syncError)")
-            error = syncError
-        }
-        
-        if let error = error { throw error } else {
-            return Observable.from(optional: posts)
-        }
     }
     
 }

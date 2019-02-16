@@ -12,7 +12,6 @@
 		3D308B6E22149F2D00FC49C1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D308B6D22149F2D00FC49C1 /* Colors.swift */; };
 		3D308B722214B83900FC49C1 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D308B712214B7AD00FC49C1 /* Montserrat-SemiBold.ttf */; };
 		3D3253432216356A003B65C3 /* PostDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3253422216356A003B65C3 /* PostDetailViewModelTests.swift */; };
-		3D39737022157175003D45FD /* RepresentationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D39736F22157175003D45FD /* RepresentationProtocol.swift */; };
 		3D3973722215D74F003D45FD /* FeedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3973712215D74F003D45FD /* FeedError.swift */; };
 		3D397388221603D4003D45FD /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D397387221603D4003D45FD /* ErrorView.swift */; };
 		3D3F5AA4221426AC00E09F86 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3F5AA3221426AC00E09F86 /* PostDetailViewModel.swift */; };
@@ -57,7 +56,6 @@
 		3D308B6D22149F2D00FC49C1 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3D308B712214B7AD00FC49C1 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		3D3253422216356A003B65C3 /* PostDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModelTests.swift; sourceTree = "<group>"; };
-		3D39736F22157175003D45FD /* RepresentationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepresentationProtocol.swift; sourceTree = "<group>"; };
 		3D3973712215D74F003D45FD /* FeedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedError.swift; sourceTree = "<group>"; };
 		3D397387221603D4003D45FD /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		3D3F5AA3221426AC00E09F86 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
@@ -221,7 +219,6 @@
 				3D4E8C15221192FF00644FA1 /* PostRepresentation.swift */,
 				3D4E8C1722119C1C00644FA1 /* CommentRepresentation.swift */,
 				3D4E8C192211A2A700644FA1 /* UserRepresentation.swift */,
-				3D39736F22157175003D45FD /* RepresentationProtocol.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -468,7 +465,6 @@
 				3D3F5AA622144FB600E09F86 /* PostDetailViewController.swift in Sources */,
 				3D4E8C1C2211A2FD00644FA1 /* FeedStore.swift in Sources */,
 				3D308B6E22149F2D00FC49C1 /* Colors.swift in Sources */,
-				3D39737022157175003D45FD /* RepresentationProtocol.swift in Sources */,
 				3D4E8C1822119C1C00644FA1 /* CommentRepresentation.swift in Sources */,
 				3D4E8C1A2211A2A700644FA1 /* UserRepresentation.swift in Sources */,
 				3D3F5AA4221426AC00E09F86 /* PostDetailViewModel.swift in Sources */,

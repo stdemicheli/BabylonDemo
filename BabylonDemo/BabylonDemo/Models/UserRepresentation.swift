@@ -13,7 +13,7 @@ import CoreData
  A user representation model which represents a user parsed from a JSON object.
  */
 
-struct UserRepresentation: Codable, Representation {
+struct UserRepresentation: Codable {
     
     let identifier: Int
     let name: String
@@ -53,8 +53,16 @@ extension User {
     }
     
     /// Converts UserRepresentations into a list of User models.
-    static func convert(from representations: [UserRepresentation]) -> [User] {
-        return representations.map { User(userRepresentation: $0) }
+    static func convert(from representations: [UserRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [User] {
+        let users = representations.map { User(userRepresentation: $0, context: context) }
+        
+        do {
+            try FeedStore.shared.save(context: context)
+        } catch {
+            NSLog("Error saving users to local store: \(error)")
+        }
+        
+        return users
     }
     
 }

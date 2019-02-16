@@ -57,7 +57,7 @@ class FeedViewModel: ViewModelType {
             }
             // Transform Post models into View Post models.
             .flatMap { posts -> Observable<[ViewPost]> in
-                let viewPosts = posts.compactMap { (title: $0.title!, postId: Int($0.identifier), userId: Int($0.userIdentifier)) }
+                let viewPosts = posts.compactMap { (title: $0.title ?? "", postId: Int($0.identifier), userId: Int($0.userIdentifier)) }
                 return Observable.from(optional: viewPosts)
             }
         

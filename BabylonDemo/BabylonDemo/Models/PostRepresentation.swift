@@ -13,7 +13,7 @@ import CoreData
  A post representation model which represents a post parsed from a JSON object.
  */
 
-struct PostRepresentation: Codable, Representation {
+struct PostRepresentation: Codable {
     
     let identifier: Int
     let userIdentifier: Int
@@ -53,8 +53,16 @@ extension Post {
     }
     
     /// Converts PostRepresentations into a list of Post models.
-    static func convert(from representations: [PostRepresentation]) -> [Post] {
-        return representations.map { Post(postRepresentation: $0) }
+    static func convert(from representations: [PostRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [Post] {
+        let posts = representations.map { Post(postRepresentation: $0, context: context) }
+        
+        do {
+            try FeedStore.shared.save(context: context)
+        } catch {
+            NSLog("Error saving posts to local store: \(error)")
+        }
+        
+        return posts
     }
     
 }
