@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Creates application object with either the AppDelegate or a TestingAppDelegate.
 let appDelegateClass: AnyClass =
     NSClassFromString("TestingAppDelegate") ?? AppDelegate.self
 

@@ -22,7 +22,7 @@
 		3D4382B72212FBA70046D568 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4382B62212FBA70046D568 /* FeedViewController.swift */; };
 		3D4382BB221340930046D568 /* FeedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4382BA221340930046D568 /* FeedViewModelTests.swift */; };
 		3D4382BD221341AA0046D568 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4382BC221341AA0046D568 /* TestData.swift */; };
-		3D4382C1221346190046D568 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4382C0221346190046D568 /* DataLoader.swift */; };
+		3D4382C1221346190046D568 /* DataLoaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4382C0221346190046D568 /* DataLoaderProtocol.swift */; };
 		3D4382C322134A040046D568 /* MockLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4382C222134A040046D568 /* MockLoader.swift */; };
 		3D4E8BEC22118E8900644FA1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8BEB22118E8900644FA1 /* AppDelegate.swift */; };
 		3D4E8BF122118E8900644FA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D4E8BEF22118E8900644FA1 /* Main.storyboard */; };
@@ -66,7 +66,7 @@
 		3D4382B62212FBA70046D568 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		3D4382BA221340930046D568 /* FeedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModelTests.swift; sourceTree = "<group>"; };
 		3D4382BC221341AA0046D568 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
-		3D4382C0221346190046D568 /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
+		3D4382C0221346190046D568 /* DataLoaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoaderProtocol.swift; sourceTree = "<group>"; };
 		3D4382C222134A040046D568 /* MockLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLoader.swift; sourceTree = "<group>"; };
 		3D4E8BE822118E8900644FA1 /* BabylonDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabylonDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4E8BEB22118E8900644FA1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -206,8 +206,8 @@
 				3D4E8C222211B88100644FA1 /* FeedLoader.swift */,
 				3D4E8C1B2211A2FD00644FA1 /* FeedStore.swift */,
 				3D4E8C202211A9B800644FA1 /* FeedAPI.swift */,
-				3D4382C0221346190046D568 /* DataLoader.swift */,
 				3D3973712215D74F003D45FD /* FeedError.swift */,
+				3D4382C0221346190046D568 /* DataLoaderProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -474,7 +474,7 @@
 				3D4E8C16221192FF00644FA1 /* PostRepresentation.swift in Sources */,
 				3D4E8C232211B88100644FA1 /* FeedLoader.swift in Sources */,
 				3D4382B72212FBA70046D568 /* FeedViewController.swift in Sources */,
-				3D4382C1221346190046D568 /* DataLoader.swift in Sources */,
+				3D4382C1221346190046D568 /* DataLoaderProtocol.swift in Sources */,
 				3D308B6C22149F2600FC49C1 /* Appearance.swift in Sources */,
 				3D397388221603D4003D45FD /* ErrorView.swift in Sources */,
 				3D4E8BEC22118E8900644FA1 /* AppDelegate.swift in Sources */,

@@ -14,7 +14,7 @@ import RxSwift
  */
 
 protocol FeedAPIProtocol {
-    var dataLoader: DataLoader { get }
+    var dataLoader: DataLoaderProtocol { get }
     func loadPosts() -> Observable<[PostRepresentation]>
     func loadComments() -> Observable<[CommentRepresentation]>
     func loadUsers() -> Observable<[UserRepresentation]>
@@ -37,11 +37,11 @@ struct FeedAPI: FeedAPIProtocol {
     // MARK: - Properties
     
     let baseUrl = URL(string: "http://jsonplaceholder.typicode.com/")!
-    let dataLoader: DataLoader
+    let dataLoader: DataLoaderProtocol
     
     // MARK: - Init
     
-    init(dataLoader: DataLoader = URLSession.shared) {
+    init(dataLoader: DataLoaderProtocol = URLSession.shared) {
         self.dataLoader = dataLoader
     }
     

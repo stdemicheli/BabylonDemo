@@ -12,7 +12,7 @@ import CoreData
 
 @testable import BabylonDemo
 
-class MockLoader: DataLoader {
+class MockLoader: DataLoaderProtocol {
     
     init(data: Data? = nil, error: Error? = nil) {
         self.data = data

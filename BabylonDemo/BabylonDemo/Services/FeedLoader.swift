@@ -11,7 +11,7 @@ import CoreData
 import RxSwift
 
 /**
- The loader service for loading data to be displayed on the feed and post details.
+ A loader service for loading data to be displayed on the feed and post details.
  */
 
 class FeedLoader {
@@ -42,7 +42,7 @@ class FeedLoader {
         setupOutput()
     }
     
-    /// Setup of output to be consumed by view models.
+    /// Sets up output to be consumed by view models.
     private func setupOutput() {
         // Load posts from the local store in a background context.
         let backgroundContext = feedStore.container.newBackgroundContext()
@@ -58,30 +58,37 @@ class FeedLoader {
     
     // MARK: - Feed loader
     
-    /// Loads posts from the network and persists them locally. On error,returns locally persisted posts.
+    /// Loads posts from the network and persists them locally. On error, returns locally persisted posts.
     func loadPosts(with postsFromStore: [Post], in context: NSManagedObjectContext) -> Observable<[Post]> {
         return feedAPI.loadPosts()
             .flatMap { postRepresentations -> Observable<[Post]> in
-                // Converts post representations to post models and saves them to local persistence. Uses unique constraints to avoid duplication.
+                // Converts post representations to post models and persists them locally.
                 let posts = Post.convert(from: postRepresentations, in: context)
-                return Observable<[Post]>.from(optional: posts.reversed())
+                return Observable<[Post]>.from(optional: posts)
             }
+            .startWith(postsFromStore)
             .share(replay: 1, scope: .whileConnected)
-            .catchError { error in
-                // Notify subscribers about the error.
-                if let feedError = error as? FeedError.Types {
-                    self.error.value = FeedError(type: feedError)
+            .retryWhen { error in
+                // Retries on error. Delays retry after each attempt.
+                return error.enumerated().flatMap { (attempt, error) -> Observable<Int> in
+                    let maxAttempts = 3
+                    
+                    if attempt >= maxAttempts - 1 {
+                        // Notify subscribers about the error.
+                        if let feedError = error as? FeedError.Types {
+                            self.error.value = FeedError(type: feedError)
+                        }
+                    }
+                    return Observable<Int>.timer(Double(attempt * 2), scheduler: MainScheduler.instance).take(1)
                 }
-                // Return locally persisted objects.
-                return Observable.from(optional: postsFromStore)
             }
     }
     
-    /// Loads comments from the network and persists them locally. On error,returns locally persisted comments.
+    /// Loads comments from the network and persists them locally. On error, returns locally persisted comments.
     func loadComments(with commentsFromStore: [Comment], in context: NSManagedObjectContext) -> Observable<[Comment]> {
         return feedAPI.loadComments()
             .flatMap { commentRepresentations -> Observable<[Comment]> in
-                // Converts comment representations to comment models and saves them to local persistence. Uses unique constraints to avoid duplication.
+                // Converts comment representations to comment models and persists them locally.
                 let comments = Comment.convert(from: commentRepresentations, in: context)
                 return Observable.from(optional: comments)
             }
@@ -96,11 +103,11 @@ class FeedLoader {
             }
     }
     
-    /// Loads users from the network and persists them locally. On error,returns locally persisted users.
+    /// Loads users from the network and persists them locally. On error, returns locally persisted users.
     func loadUsers(with usersFromStore: [User], in context: NSManagedObjectContext) -> Observable<[User]> {
         return feedAPI.loadUsers()
             .flatMap { userRepresentations -> Observable<[User]> in
-                // Converts user representations to user models and saves them to local persistence. Uses unique constraints to avoid duplication.
+                // Converts user representations to user models and persists them locally.
                 let users = User.convert(from: userRepresentations, in: context)
                 return Observable.from(optional: users)
             }

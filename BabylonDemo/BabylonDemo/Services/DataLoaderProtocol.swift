@@ -13,12 +13,12 @@ import Foundation
  The data loader protocol gives us the ability to inject mock data for our tests.
  */
 
-protocol DataLoader {
+protocol DataLoaderProtocol {
     func loadData(from request: URLRequest, completion: @escaping(Data?, URLResponse?,  Error?) -> Void) -> URLSessionDataTask
     func loadData(from url: URL, completion: @escaping(Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
 }
 
-extension URLSession: DataLoader {
+extension URLSession: DataLoaderProtocol {
     func loadData(from request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         return dataTask(with: request) { (data, res, error) in
             completion(data, res, error)

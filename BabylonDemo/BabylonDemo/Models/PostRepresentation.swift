@@ -52,10 +52,11 @@ extension Post {
                   context: context)
     }
     
-    /// Converts PostRepresentations into a list of Post models and persists them locally.
+    /// Converts PostRepresentations into a list of Post models and persists them locally.  Uses unique constraints to avoid duplication.
     static func convert(from representations: [PostRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [Post] {
         
-        let posts = representations.map { Post(postRepresentation: $0, context: context) }
+        // Assumes that highest identifiers represent the latest posts in the feed, so we sort posts in a descending order.
+        let posts = representations.map { Post(postRepresentation: $0, context: context) }.sorted(by: { $0.identifier > $1.identifier })
         
         do {
             try FeedStore.shared.save(context: context)

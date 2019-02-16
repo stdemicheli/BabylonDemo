@@ -43,7 +43,6 @@ class FeedStore: FeedPersistenceStoreProtocol {
                 fatalError("Failed to load persistent store: \(error)")
             }
             container.viewContext.automaticallyMergesChangesFromParent = true
-            container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
         }
         
         return container
@@ -58,7 +57,7 @@ class FeedStore: FeedPersistenceStoreProtocol {
     func save(context: NSManagedObjectContext) throws {
         var error: Error?
         
-        //context.mergePolicy = NSMergePolicy.overwrite
+        context.mergePolicy = NSMergePolicy.overwrite
         context.performAndWait {
             do {
                 try context.save()

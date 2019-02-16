@@ -8,9 +8,17 @@
 
 import UIKit
 
+/**
+ A protocol with which delegatees can inform the app coordinator about user actions.
+ */
+
 protocol AppCoordinatorDelegate: class {
     func didTapOnPost(with postId: Int, userId: Int)
 }
+
+/**
+ An app coordinator that handles the navigation of the app.
+ */
 
 class AppCoordinator: AppCoordinatorDelegate {
     
@@ -28,6 +36,7 @@ class AppCoordinator: AppCoordinatorDelegate {
     
     // MARK: - Navigation
     
+    /// Starts the app with a feed view controller.
     func start() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let feedViewModel = FeedViewModel(loader: feedLoader)
@@ -38,6 +47,7 @@ class AppCoordinator: AppCoordinatorDelegate {
         navigationController.pushViewController(feedViewController, animated: true)
     }
     
+    /// Shows a post's detail.
     func showPostDetails(for postId: Int, userId: Int) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let postDetailViewModel = PostDetailViewModel(loader: feedLoader, postId: postId, userId: userId)
@@ -49,6 +59,7 @@ class AppCoordinator: AppCoordinatorDelegate {
     
     // MARK: - AppCoordinatorDelegate
     
+    /// Handles event where user taps on a post.
     func didTapOnPost(with postId: Int, userId: Int) {
         showPostDetails(for: postId, userId: userId)
     }

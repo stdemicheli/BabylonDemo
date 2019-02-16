@@ -56,7 +56,7 @@ extension Comment {
                   context: context)
     }
     
-    /// Converts CommentRepresentations into a list of Comment models and persists them locally.
+    /// Converts CommentRepresentations into a list of Comment models and persists them locally. Uses unique constraints to avoid duplication.
     static func convert(from representations: [CommentRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [Comment] {
         let comments = representations.map { Comment(commentRepresentation: $0, context: context) }
         
