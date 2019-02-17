@@ -11,7 +11,7 @@ import CoreData
 import RxSwift
 
 /**
- The protocol for fetching data for the post feed from the local persistence store.
+ The protocol for fetching feed data from the local persistence store.
  */
 
 protocol FeedPersistenceStoreProtocol {
@@ -54,6 +54,7 @@ class FeedStore: FeedPersistenceStoreProtocol {
     
     // MARK: - Public methods
     
+    /// Saves managed objects in a given context.
     func save(context: NSManagedObjectContext) throws {
         var error: Error?
         

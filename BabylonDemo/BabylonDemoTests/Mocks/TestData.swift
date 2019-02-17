@@ -93,8 +93,10 @@ struct TestData {
         static let expectedAuthor = "test"
         static let expectedDescription = "test"
         static let expectedNumberOfComments = 1
-        static let expectedErrorMessage = "No internet connection."
-        static let expectedErrorType = FeedError.Types.noConnection
+        static let expectedConnectionErrorMessage = "No internet connection."
+        static let expectedConnectionErrorType = FeedError.Types.noConnection
+        static let expectedDecodingErrorMessage = "Error while fetching feed. Please try again."
+        static let expectedDecodingErrorType = FeedError.Types.decodingFailed
         
     }
 

@@ -30,7 +30,7 @@ struct UserRepresentation: Codable {
 }
 
 /**
- Convenience initializers for turning UserRepresentations into User models.
+ Convenience initializers for converting UserRepresentations into User models.
  */
 
 extension User {
@@ -52,7 +52,7 @@ extension User {
                   context: context)
     }
     
-    /// Converts UserRepresentations into a list of User models and persists them locally. Uses unique constraints to avoid duplication.
+    /// Converts user representations into a list of user models and persists them locally. Uses unique constraints to avoid duplication.
     static func convert(from representations: [UserRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [User] {
         let users = representations.map { User(userRepresentation: $0, context: context) }
         

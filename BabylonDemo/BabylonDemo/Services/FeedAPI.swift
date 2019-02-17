@@ -26,14 +26,6 @@ protocol FeedAPIProtocol {
 
 struct FeedAPI: FeedAPIProtocol {
     
-    /// An HTTP method type for type-safe http method configurations.
-    private enum HTTPMethod: String {
-        case post = "POST"
-        case put = "PUT"
-        case get = "GET"
-        case delete = "DELETE"
-    }
-    
     // MARK: - Properties
     
     let baseUrl = URL(string: "http://jsonplaceholder.typicode.com/")!

@@ -30,7 +30,7 @@ struct PostRepresentation: Codable {
 }
 
 /**
- Convenience initializers for turning PostRepresentations into Post models.
+ Convenience initializers for converting PostRepresentations into Post models.
  */
 
 extension Post {
@@ -43,7 +43,7 @@ extension Post {
         self.body = body
     }
     
-    /// An convenience initializer that initializes a Post model from a parsed JSON object.
+    /// A convenience initializer that initializes a post model from a parsed JSON object.
     convenience init(postRepresentation: PostRepresentation, context: NSManagedObjectContext = FeedStore.shared.mainContext) {
         self.init(identifier: Int16(postRepresentation.identifier),
                   userIdentifier: Int16(postRepresentation.userIdentifier),
@@ -52,7 +52,7 @@ extension Post {
                   context: context)
     }
     
-    /// Converts PostRepresentations into a list of Post models and persists them locally.  Uses unique constraints to avoid duplication.
+    /// Converts post representations into a list of post models and persists them locally.  Uses unique constraints to avoid duplication.
     static func convert(from representations: [PostRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [Post] {
         
         // Assumes that highest identifiers represent the latest posts in the feed, so we sort posts in a descending order.

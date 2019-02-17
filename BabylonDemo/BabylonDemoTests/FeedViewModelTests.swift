@@ -93,6 +93,7 @@ class FeedViewModelTests: XCTestCase {
     
     func test_whenErrorIsThrown_handlesDecodingError() {
         // given
+        let feedError = FeedError(type: .decodingFailed)
         mockLoader.data = TestData.Feed.invalidPostJSON
         let testSubject = PublishSubject<Void>()
         let input = FeedViewModel.Input(fetch: testSubject.asObservable())
@@ -105,6 +106,20 @@ class FeedViewModelTests: XCTestCase {
                 // then
                 XCTAssertNotNil(post)
                 XCTAssertTrue(post.isEmpty)
+                expectation?.fulfill()
+                expectation = nil
+            })
+            .disposed(by: disposeBag)
+        
+        output.error.asObservable()
+            .observeOn(MainScheduler.instance)
+            .filter { $0.type != .none }
+            .take(1)
+            .subscribe(onNext: { error in
+                // then
+                XCTAssertNotNil(feedError)
+                XCTAssertEqual(feedError.type, TestData.PostDetail.expectedDecodingErrorType)
+                XCTAssertEqual(feedError.message, TestData.PostDetail.expectedDecodingErrorMessage)
                 expectation?.fulfill()
                 expectation = nil
             })
@@ -133,8 +148,8 @@ class FeedViewModelTests: XCTestCase {
             .subscribe(onNext: { error in
                 // then
                 XCTAssertNotNil(feedError)
-                XCTAssertEqual(feedError.type, TestData.PostDetail.expectedErrorType)
-                XCTAssertEqual(feedError.message, TestData.PostDetail.expectedErrorMessage)
+                XCTAssertEqual(feedError.type, TestData.PostDetail.expectedConnectionErrorType)
+                XCTAssertEqual(feedError.message, TestData.PostDetail.expectedConnectionErrorMessage)
                 expectation?.fulfill()
                 expectation = nil
             })

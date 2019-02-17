@@ -20,8 +20,9 @@ class FeedViewModel: ViewModelType {
     
     // MARK: - Properties
     
-    /// Refers to a view model to be consumed by the view.
+    /// Represents a post to be consumed by the view.
     typealias ViewPost = (title: String, postId: Int, userId: Int)
+    
     private let loader: FeedLoader
     private let disposeBag = DisposeBag()
     
@@ -34,7 +35,7 @@ class FeedViewModel: ViewModelType {
     
     // MARK: - Output
     
-    /// Output which exposes an observable sequence of post arrays.
+    /// Output which exposes an observable sequence of post arrays and an error subject.
     struct Output {
         let posts: Observable<[ViewPost]>
         let error: Variable<FeedError>
@@ -61,6 +62,7 @@ class FeedViewModel: ViewModelType {
                 return Observable.from(optional: viewPosts)
             }
         
+        // Bind error subject to the data loader's error observable.
         let error = loader.error
         
         return Output(posts: posts, error: error)

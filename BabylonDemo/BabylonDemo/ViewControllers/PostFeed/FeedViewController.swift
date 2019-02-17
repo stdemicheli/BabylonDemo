@@ -18,10 +18,11 @@ class FeedViewController: UIViewController {
     
     // MARK: - Properties
     
-    @IBOutlet weak var barButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    
     var feedViewModel: FeedViewModel?
     var appCoordinatorDelegate: AppCoordinatorDelegate?
+    
     private let disposeBag = DisposeBag()
     
     // MARK: - Life Cycle

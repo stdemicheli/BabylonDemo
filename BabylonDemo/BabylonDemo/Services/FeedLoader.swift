@@ -58,7 +58,7 @@ class FeedLoader {
     
     // MARK: - Feed loader
     
-    /// Loads posts from the network and persists them locally. On error, returns locally persisted posts.
+    /// Loads posts from the network and persists them locally. On error, returns only locally persisted posts.
     func loadPosts(with postsFromStore: [Post], in context: NSManagedObjectContext) -> Observable<[Post]> {
         return feedAPI.loadPosts()
             .flatMap { postRepresentations -> Observable<[Post]> in
@@ -85,7 +85,7 @@ class FeedLoader {
             }
     }
     
-    /// Loads comments from the network and persists them locally. On error, returns locally persisted comments.
+    /// Loads comments from the network and persists them locally. On error, returns only locally persisted comments.
     func loadComments(with commentsFromStore: [Comment], in context: NSManagedObjectContext) -> Observable<[Comment]> {
         return feedAPI.loadComments()
             .flatMap { commentRepresentations -> Observable<[Comment]> in
@@ -104,7 +104,7 @@ class FeedLoader {
             }
     }
     
-    /// Loads users from the network and persists them locally. On error, returns locally persisted users.
+    /// Loads users from the network and persists them locally. On error, returns only locally persisted users.
     func loadUsers(with usersFromStore: [User], in context: NSManagedObjectContext) -> Observable<[User]> {
         return feedAPI.loadUsers()
             .flatMap { userRepresentations -> Observable<[User]> in

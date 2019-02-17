@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 /**
- An appearance struct for defining default styling of the UI.
+ An appearance object for defining default styling of the UI.
  */
 
 struct Appearance {

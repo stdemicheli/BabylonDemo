@@ -8,6 +8,10 @@
 
 import Foundation
 
+/**
+ A helper variable which indicates if the app instance is in UI testing mode.
+ */
+
 var isUITesting: Bool {
     return CommandLine.arguments.contains("UITesting")
 }

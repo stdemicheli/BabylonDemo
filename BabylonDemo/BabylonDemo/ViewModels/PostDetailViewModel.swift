@@ -20,7 +20,7 @@ class PostDetailViewModel: ViewModelType {
     
     // MARK: - Properties
     
-    /// Refers to a view model to be consumed by the view.
+    /// Represents a post detail to be consumed by the view.
     typealias ViewPostDetail = (author: String, description: String, commentCount: Int)
     
     let postId: Variable<Int>
@@ -38,7 +38,7 @@ class PostDetailViewModel: ViewModelType {
     
     // MARK: - Output
     
-    /// Output which exposes an observable sequence of post details.
+    /// Output which exposes an observable sequence of post details and an error subject.
     struct Output {
         let postDetail: Driver<ViewPostDetail>
         let error: Variable<FeedError>
@@ -80,6 +80,7 @@ class PostDetailViewModel: ViewModelType {
             // Errors are handled through a separate observer, so we handle them gracefully for the UI.
             .asDriver(onErrorJustReturn: (author: "", description: "", commentCount: 0))
         
+        // Bind error subject to the data loader's error observable.
         let error = loader.error
         
         return Output(postDetail: postDetail, error: error)

@@ -14,7 +14,7 @@ import Foundation
 
 struct FeedError {
     
-    /// An error type for handling errors that occur during the Feed cycle.
+    /// Error types for indicating the type of error that occured during the feed cycle.
     enum Types: Error {
         case requestFailed, decodingFailed, noConnection, valueNotFound, none
     }

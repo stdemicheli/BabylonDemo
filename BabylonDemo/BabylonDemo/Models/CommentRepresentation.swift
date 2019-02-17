@@ -32,7 +32,7 @@ struct CommentRepresentation: Codable {
 }
 
 /**
- Convenience initializers for turning CommentRepresentations into Comment models.
+ Convenience initializers for converting CommentRepresentations into Comment models.
  */
 
 extension Comment {
@@ -46,7 +46,7 @@ extension Comment {
         self.email = email
     }
     
-    /// An convenience initializer that initializes a Comment model from a parsed JSON object.
+    /// A convenience initializer that initializes a Comment model from a parsed JSON object.
     convenience init(commentRepresentation: CommentRepresentation, context: NSManagedObjectContext = FeedStore.shared.mainContext) {
         self.init(identifier: Int16(commentRepresentation.identifier),
                   postIdentifier: Int16(commentRepresentation.postIdentifier),
@@ -56,7 +56,7 @@ extension Comment {
                   context: context)
     }
     
-    /// Converts CommentRepresentations into a list of Comment models and persists them locally. Uses unique constraints to avoid duplication.
+    /// Converts comment representations into a list of comment models and persists them locally. Uses unique constraints to avoid duplication.
     static func convert(from representations: [CommentRepresentation], in context: NSManagedObjectContext = FeedStore.shared.mainContext) -> [Comment] {
         let comments = representations.map { Comment(commentRepresentation: $0, context: context) }
         

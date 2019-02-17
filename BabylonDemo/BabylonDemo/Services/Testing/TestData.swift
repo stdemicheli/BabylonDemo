@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- Test data which is injected into a mock API service.
+ Test data which is injected into the mock API service.
  */
 
 struct TestData {

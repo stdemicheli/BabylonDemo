@@ -19,7 +19,9 @@ class PostDetailViewController: UIViewController {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var commentCountLabel: UILabel!
+    
     var postDetailViewModel: PostDetailViewModel?
+    
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -43,11 +45,10 @@ class PostDetailViewController: UIViewController {
         bindAuthorLabel(to: viewModelOutput)
         bindDescriptionLabel(to: viewModelOutput)
         bindCommentCountLabel(to: viewModelOutput)
-        bindErrorEvent(to: viewModelOutput)
+        bindErrorHandling(to: viewModelOutput)
 
         // Trigger initial fetch.
         fetchObservable.onNext(())
-        
     }
     
     private func bindAuthorLabel(to viewModelOutput: PostDetailViewModel.Output) {
@@ -78,7 +79,7 @@ class PostDetailViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func bindErrorEvent(to viewModelOutput: PostDetailViewModel.Output) {
+    private func bindErrorHandling(to viewModelOutput: PostDetailViewModel.Output) {
         viewModelOutput.error
             .asObservable()
             .observeOn(MainScheduler.instance)
