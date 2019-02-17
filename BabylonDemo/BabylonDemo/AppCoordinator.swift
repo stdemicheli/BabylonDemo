@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- A protocol with which delegatees can inform the app coordinator about user actions.
+ A protocol through which the app coordinator gets informed about relevant user actions that should trigger navigation.
  */
 
 protocol AppCoordinatorDelegate: class {
@@ -29,7 +29,12 @@ class AppCoordinator: AppCoordinatorDelegate {
     init(navigationController: UINavigationController, feedAPI: FeedAPIProtocol = FeedAPI()) {
         self.navigationController = navigationController
 
-        feedLoader = FeedLoader(api: feedAPI)
+        // Use a mock feed loader for UI testing.
+        if isUITesting {
+            feedLoader = FeedLoader(api: MockAPI())
+        } else {
+            feedLoader = FeedLoader(api: feedAPI)
+        }
         
         setupNavigationController()
     }

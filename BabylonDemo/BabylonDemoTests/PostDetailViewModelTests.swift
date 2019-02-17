@@ -65,7 +65,7 @@ class PostDetailViewModelTests: XCTestCase {
     
     // MARK: - Tests
     
-    func test_whenFetchingForPostDetails_handlesValidPostData() {
+    func test_whenFetchingForPostDetails_handlesValidPostDetailData() {
         // given
         let testSubject = PublishSubject<Void>()
         let input = PostDetailViewModel.Input(fetch: testSubject.asObservable())

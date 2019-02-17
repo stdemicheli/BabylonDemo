@@ -71,10 +71,10 @@ class FeedLoader {
             .retryWhen { error in
                 // Retries on error. Delays retry after each attempt.
                 return error.enumerated().flatMap { (attempt, error) -> Observable<Int> in
-                    let maxAttempts = 3
+                    let maxAttempts = 2
                     
                     if attempt >= maxAttempts - 1 {
-                        // Notify subscribers about the error.
+                        // Notify subscribers about the error when exceeded max no. of attempts.
                         if let feedError = error as? FeedError.Types {
                             self.error.value = FeedError(type: feedError)
                         }

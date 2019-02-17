@@ -12,6 +12,8 @@
 		3D308B6E22149F2D00FC49C1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D308B6D22149F2D00FC49C1 /* Colors.swift */; };
 		3D308B722214B83900FC49C1 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D308B712214B7AD00FC49C1 /* Montserrat-SemiBold.ttf */; };
 		3D3253432216356A003B65C3 /* PostDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3253422216356A003B65C3 /* PostDetailViewModelTests.swift */; };
+		3D3559D72218A70A00C1FA9B /* XCTestCase+Expect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3559D62218A70A00C1FA9B /* XCTestCase+Expect.swift */; };
+		3D3559D92218A72300C1FA9B /* TestPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3559D82218A72300C1FA9B /* TestPage.swift */; };
 		3D3973722215D74F003D45FD /* FeedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3973712215D74F003D45FD /* FeedError.swift */; };
 		3D397388221603D4003D45FD /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D397387221603D4003D45FD /* ErrorView.swift */; };
 		3D3F5AA4221426AC00E09F86 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3F5AA3221426AC00E09F86 /* PostDetailViewModel.swift */; };
@@ -35,12 +37,24 @@
 		3D4E8C1F2211A36E00644FA1 /* Feed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C1D2211A36E00644FA1 /* Feed.xcdatamodeld */; };
 		3D4E8C212211A9B800644FA1 /* FeedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C202211A9B800644FA1 /* FeedAPI.swift */; };
 		3D4E8C232211B88100644FA1 /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E8C222211B88100644FA1 /* FeedLoader.swift */; };
+		3D54284E221966F60012E40E /* FeedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D54284D221966F60012E40E /* FeedPage.swift */; };
+		3D542850221967420012E40E /* FeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D54284F221967420012E40E /* FeedUITests.swift */; };
+		3D542852221976700012E40E /* isUITesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D542851221976700012E40E /* isUITesting.swift */; };
+		3D542855221976FD0012E40E /* MockAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D542854221976FD0012E40E /* MockAPI.swift */; };
+		3D54285722197B230012E40E /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D54285622197B230012E40E /* TestData.swift */; };
 		3DB82FA62216D6BA00BF3E81 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB82FA52216D6BA00BF3E81 /* main.swift */; };
 		3DB82FA82216D71F00BF3E81 /* TestingAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB82FA72216D71F00BF3E81 /* TestingAppDelegate.swift */; };
 		F30E8B8765CF22AEB60B4FED /* Pods_BabylonDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4980E3A8E57C0C14BE2DF316 /* Pods_BabylonDemoTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3D3559D12218A66000C1FA9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D4E8BE022118E8900644FA1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3D4E8BE722118E8900644FA1;
+			remoteInfo = BabylonDemo;
+		};
 		3D4E8C0B2211906A00644FA1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3D4E8BE022118E8900644FA1 /* Project object */;
@@ -56,6 +70,10 @@
 		3D308B6D22149F2D00FC49C1 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3D308B712214B7AD00FC49C1 /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		3D3253422216356A003B65C3 /* PostDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModelTests.swift; sourceTree = "<group>"; };
+		3D3559CC2218A66000C1FA9B /* BabylonDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabylonDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D3559D02218A66000C1FA9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D3559D62218A70A00C1FA9B /* XCTestCase+Expect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Expect.swift"; sourceTree = "<group>"; };
+		3D3559D82218A72300C1FA9B /* TestPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPage.swift; sourceTree = "<group>"; };
 		3D3973712215D74F003D45FD /* FeedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedError.swift; sourceTree = "<group>"; };
 		3D397387221603D4003D45FD /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		3D3F5AA3221426AC00E09F86 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
@@ -83,6 +101,11 @@
 		3D4E8C1E2211A36E00644FA1 /* Feed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Feed.xcdatamodel; sourceTree = "<group>"; };
 		3D4E8C202211A9B800644FA1 /* FeedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAPI.swift; sourceTree = "<group>"; };
 		3D4E8C222211B88100644FA1 /* FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoader.swift; sourceTree = "<group>"; };
+		3D54284D221966F60012E40E /* FeedPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPage.swift; sourceTree = "<group>"; };
+		3D54284F221967420012E40E /* FeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUITests.swift; sourceTree = "<group>"; };
+		3D542851221976700012E40E /* isUITesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = isUITesting.swift; sourceTree = "<group>"; };
+		3D542854221976FD0012E40E /* MockAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPI.swift; sourceTree = "<group>"; };
+		3D54285622197B230012E40E /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		3DB82FA52216D6BA00BF3E81 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		3DB82FA72216D71F00BF3E81 /* TestingAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingAppDelegate.swift; sourceTree = "<group>"; };
 		4980E3A8E57C0C14BE2DF316 /* Pods_BabylonDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BabylonDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +116,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3D3559C92218A66000C1FA9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3D4E8BE522118E8900644FA1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,6 +153,18 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		3D3559CD2218A66000C1FA9B /* BabylonDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3D54284F221967420012E40E /* FeedUITests.swift */,
+				3D54284D221966F60012E40E /* FeedPage.swift */,
+				3D3559D82218A72300C1FA9B /* TestPage.swift */,
+				3D3559D62218A70A00C1FA9B /* XCTestCase+Expect.swift */,
+				3D3559D02218A66000C1FA9B /* Info.plist */,
+			);
+			path = BabylonDemoUITests;
+			sourceTree = "<group>";
+		};
 		3D3973862216037E003D45FD /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +178,7 @@
 			children = (
 				3D4E8BEA22118E8900644FA1 /* BabylonDemo */,
 				3D4E8C072211906A00644FA1 /* BabylonDemoTests */,
+				3D3559CD2218A66000C1FA9B /* BabylonDemoUITests */,
 				3D4E8BE922118E8900644FA1 /* Products */,
 				16DA00E1C79F32647C00DD12 /* Pods */,
 				BAB1ACCE46036C934DDE6215 /* Frameworks */,
@@ -147,6 +190,7 @@
 			children = (
 				3D4E8BE822118E8900644FA1 /* BabylonDemo.app */,
 				3D4E8C062211906A00644FA1 /* BabylonDemoTests.xctest */,
+				3D3559CC2218A66000C1FA9B /* BabylonDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +251,7 @@
 				3D4E8C202211A9B800644FA1 /* FeedAPI.swift */,
 				3D3973712215D74F003D45FD /* FeedError.swift */,
 				3D4382C0221346190046D568 /* DataLoaderProtocol.swift */,
+				3D542853221976EF0012E40E /* Testing */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -238,6 +283,7 @@
 			children = (
 				3D308B6B22149F2600FC49C1 /* Appearance.swift */,
 				3D308B6D22149F2D00FC49C1 /* Colors.swift */,
+				3D542851221976700012E40E /* isUITesting.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -268,6 +314,15 @@
 			path = PostDetail;
 			sourceTree = "<group>";
 		};
+		3D542853221976EF0012E40E /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				3D542854221976FD0012E40E /* MockAPI.swift */,
+				3D54285622197B230012E40E /* TestData.swift */,
+			);
+			path = Testing;
+			sourceTree = "<group>";
+		};
 		BAB1ACCE46036C934DDE6215 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +335,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3D3559CB2218A66000C1FA9B /* BabylonDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D3559D32218A66000C1FA9B /* Build configuration list for PBXNativeTarget "BabylonDemoUITests" */;
+			buildPhases = (
+				3D3559C82218A66000C1FA9B /* Sources */,
+				3D3559C92218A66000C1FA9B /* Frameworks */,
+				3D3559CA2218A66000C1FA9B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3D3559D22218A66000C1FA9B /* PBXTargetDependency */,
+			);
+			name = BabylonDemoUITests;
+			productName = BabylonDemoUITests;
+			productReference = 3D3559CC2218A66000C1FA9B /* BabylonDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		3D4E8BE722118E8900644FA1 /* BabylonDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3D4E8BFA22118E8A00644FA1 /* Build configuration list for PBXNativeTarget "BabylonDemo" */;
@@ -328,6 +401,11 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "De MicheliStefano";
 				TargetAttributes = {
+					3D3559CB2218A66000C1FA9B = {
+						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
+						TestTargetID = 3D4E8BE722118E8900644FA1;
+					};
 					3D4E8BE722118E8900644FA1 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -352,11 +430,19 @@
 			targets = (
 				3D4E8BE722118E8900644FA1 /* BabylonDemo */,
 				3D4E8C052211906A00644FA1 /* BabylonDemoTests */,
+				3D3559CB2218A66000C1FA9B /* BabylonDemoUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3D3559CA2218A66000C1FA9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3D4E8BE622118E8900644FA1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -449,12 +535,24 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3D3559C82218A66000C1FA9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D3559D92218A72300C1FA9B /* TestPage.swift in Sources */,
+				3D542850221967420012E40E /* FeedUITests.swift in Sources */,
+				3D3559D72218A70A00C1FA9B /* XCTestCase+Expect.swift in Sources */,
+				3D54284E221966F60012E40E /* FeedPage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3D4E8BE422118E8900644FA1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3D4E8C212211A9B800644FA1 /* FeedAPI.swift in Sources */,
 				3D3F5AA622144FB600E09F86 /* PostDetailViewController.swift in Sources */,
+				3D542855221976FD0012E40E /* MockAPI.swift in Sources */,
 				3D4E8C1C2211A2FD00644FA1 /* FeedStore.swift in Sources */,
 				3D308B6E22149F2D00FC49C1 /* Colors.swift in Sources */,
 				3D4E8C1822119C1C00644FA1 /* CommentRepresentation.swift in Sources */,
@@ -462,6 +560,7 @@
 				3D3F5AA4221426AC00E09F86 /* PostDetailViewModel.swift in Sources */,
 				3DB82FA62216D6BA00BF3E81 /* main.swift in Sources */,
 				3D3973722215D74F003D45FD /* FeedError.swift in Sources */,
+				3D54285722197B230012E40E /* TestData.swift in Sources */,
 				3D4E8C1F2211A36E00644FA1 /* Feed.xcdatamodeld in Sources */,
 				3D4E8C16221192FF00644FA1 /* PostRepresentation.swift in Sources */,
 				3D4E8C232211B88100644FA1 /* FeedLoader.swift in Sources */,
@@ -473,6 +572,7 @@
 				3D3F5AA822146A3B00E09F86 /* AppCoordinator.swift in Sources */,
 				3D4382B52212F3F00046D568 /* ViewModelType.swift in Sources */,
 				3D4382B32212E6570046D568 /* FeedViewModel.swift in Sources */,
+				3D542852221976700012E40E /* isUITesting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +591,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3D3559D22218A66000C1FA9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3D4E8BE722118E8900644FA1 /* BabylonDemo */;
+			targetProxy = 3D3559D12218A66000C1FA9B /* PBXContainerItemProxy */;
+		};
 		3D4E8C0C2211906A00644FA1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3D4E8BE722118E8900644FA1 /* BabylonDemo */;
@@ -518,6 +623,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3D3559D42218A66000C1FA9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 84BULQXU2Q;
+				INFOPLIST_FILE = BabylonDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stefano.BabylonDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BabylonDemo;
+			};
+			name = Debug;
+		};
+		3D3559D52218A66000C1FA9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 84BULQXU2Q;
+				INFOPLIST_FILE = BabylonDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stefano.BabylonDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BabylonDemo;
+			};
+			name = Release;
+		};
 		3D4E8BF822118E8A00644FA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -719,6 +865,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3D3559D32218A66000C1FA9B /* Build configuration list for PBXNativeTarget "BabylonDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D3559D42218A66000C1FA9B /* Debug */,
+				3D3559D52218A66000C1FA9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3D4E8BE322118E8900644FA1 /* Build configuration list for PBXProject "BabylonDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
