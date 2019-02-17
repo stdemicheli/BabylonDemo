@@ -4,7 +4,7 @@ This document provides an overview and discussion of the app's main architecture
 
 ## General Architecture
 
-The app is implemented using RxSwift/RxCocoa with an MVVM design pattern.
+The app is implemented using RxSwift/RxCocoa and the MVVM design pattern.
 
 ## Navigation
 
