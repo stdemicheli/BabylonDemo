@@ -22,6 +22,10 @@ View models consist of inputs and outputs which views can use to trigger user ev
 
 Views bind the view model's output to its UI elements and passes on user action to the view model. It also contains simple view logic, e.g. when to show error messages.
 
+## Testing
+
+The project includes unit and UI tests. A particular focus is placed on making use of dependency injection which enables the use of mock data. 
+
 ## Takeaways
 
 Being a newcomer to reactive programming it took me a while to wrap my head around RxSwift. But once the beast was sufficiently tamed the benefits became quite apparent. Thinking in terms of value streams that flow through the app made my code much better to read and understand. It also made certain tasks surprisingly easier, like binding UI elements and handling errors. Furthermore, the MVVM felt like a natural fit and I really liked how it clearly separated the business logic (view model) from the view which is sometimes difficult to achieve in MVC.
